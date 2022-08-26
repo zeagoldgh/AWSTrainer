@@ -1,9 +1,9 @@
 import LoginInput from "../Input/LoginInput";
 import SubmitButton from "../Buttons/SubmitButton";
 import React, {FormEvent, useState} from "react";
-import axios from "axios";
 import {useAuth} from "../../auth/AuthProvider";
 import {useNavigate} from "react-router-dom";
+import {registerUser} from "../../service/apiService";
 
 interface LoginRegisterFormProps{
     isRegister : boolean
@@ -26,9 +26,7 @@ export default function LoginRegisterForm({isRegister,toggle}:LoginRegisterFormP
         if (!(password===passwordTwo) || password.length<5){
             setError("Passwörter nicht identisch oder zu kurz")
         } else {
-            axios.post(`/api/user`,
-                {'username':username, 'password':password})
-                .then(response => response.data)
+            registerUser(username,password,passwordTwo)
                 .catch(e => {
                     if (e.response.status===400){
                         setError("Name schon vergeben")
@@ -58,7 +56,7 @@ export default function LoginRegisterForm({isRegister,toggle}:LoginRegisterFormP
             <h2 className={"nes-text is-primary"}>{isRegister?"Register":"Login"}</h2>
             <form onSubmit={isRegister?createUser:login}>
                 <LoginInput
-                    placeholder={'Dein Nutzername'}
+                    placeholder={'Nutzername'}
                     value={username}
                     onChange={setUsername}
                 />
@@ -70,7 +68,7 @@ export default function LoginRegisterForm({isRegister,toggle}:LoginRegisterFormP
                 />
                     {isRegister && <LoginInput
                         isPassword
-                        placeholder={'Passwort wiederholen'}
+                        placeholder={'Wiederholen'}
                         value={passwordTwo}
                         onChange={setPasswordTwo}
                     />}
