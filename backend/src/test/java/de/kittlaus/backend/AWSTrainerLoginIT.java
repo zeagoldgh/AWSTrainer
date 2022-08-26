@@ -6,13 +6,10 @@ import de.kittlaus.backend.models.user.MyUser;
 import de.kittlaus.backend.models.user.MyUserDto;
 import de.kittlaus.backend.user.UserRepo;
 import org.junit.jupiter.api.AfterEach;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -91,7 +88,6 @@ public class AWSTrainerLoginIT {
         Token actual = actualResponse.getBody();
         assert actual != null;
     }
-
 
 
 }
