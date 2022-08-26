@@ -1,6 +1,7 @@
 package de.kittlaus.backend.user;
 
 import de.kittlaus.backend.models.user.MyUser;
+import de.kittlaus.backend.models.user.MyUserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,15 +21,16 @@ public class UserService {
         return userRepo.findByUsername(username);
     }
 
-    public ResponseEntity<MyUser> createUser(MyUser user) {
-        return ResponseEntity.ok(userRepo.save(user));
+    public ResponseEntity<MyUserDto> createUser(MyUser user) {
+        MyUser savedUser = userRepo.save(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(MyUserDto.builder().role(savedUser.getRole()).username(savedUser.getUsername()).build());
     }
 
-    public ResponseEntity<MyUser> checkAndCreate(MyUser user) {
+    public ResponseEntity<MyUserDto> checkAndCreate(MyUser user) {
         if (!user.getPassword().equals(user.getPasswordAgain())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(MyUser.builder().build());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(MyUserDto.builder().build());
         } else if (userRepo.findByUsername(user.getUsername()).isPresent()){
-            return ResponseEntity.badRequest().body(MyUser.builder().build());
+            return ResponseEntity.badRequest().body(MyUserDto.builder().build());
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setRole("USER");
