@@ -39,16 +39,16 @@ export default function AddQuestion(){
             }
             <label htmlFor="success_select">Welche Prüfung?</label>
             <div className="nes-select is-success">
-                <select required id="success_select">
-                    <option value="" disabled selected hidden>Select...</option>
+                <select required id="success_select" defaultValue={"nope"}>
+                    <option value="nope" disabled hidden>Select...</option>
                     <option value="CLF-C01">CLF-C01</option>
                 </select>
             </div>
 
             <label htmlFor="warning_select">Welche Kategorie?</label>
             <div className="nes-select is-warning">
-                <select required id="warning_select">
-                    <option value="" disabled selected hidden>Select...</option>
+                <select required id="warning_select" defaultValue={"nope"}>
+                    <option value="nope" disabled hidden>Select...</option>
                     <option value="CLOUD">Cloud Concepts</option>
                     <option value="SECURITY">Security and Compliance</option>
                     <option value="BILLING">Billing & Pricing</option>
@@ -57,8 +57,8 @@ export default function AddQuestion(){
             </div>
             <label htmlFor="error_select">Richtige Antwort</label>
             <div className="nes-select is-error">
-                <select required id="error_select">
-                    <option value="" disabled selected hidden>Select...</option>
+                <select required id="error_select" defaultValue={"nope"}>
+                    <option value="nope" disabled hidden>Select...</option>
                     <option value="0">1</option>
                     <option value="1">2</option>
                     <option value="2">3</option>
