@@ -15,7 +15,12 @@ public class QuestionController {
 
     @PostMapping
     public ResponseEntity<Question> postNewQuestion(@RequestBody Question newQuestion){
-        return ResponseEntity.status(HttpStatus.CREATED).body(questionService.saveNewQuestion(newQuestion));
+        try {
+            Question question = questionService.saveNewQuestion(newQuestion);
+            return ResponseEntity.status(HttpStatus.CREATED).body(question);
+        } catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(Question.builder().build());
+        }
     }
 
 }

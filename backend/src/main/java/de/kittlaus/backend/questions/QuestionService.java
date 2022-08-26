@@ -13,7 +13,10 @@ public class QuestionService {
 
     private final QuestionRepo questionRepo;
 
-    public Question saveNewQuestion(Question newQuestion) {
+    public Question saveNewQuestion(Question newQuestion) throws IllegalArgumentException {
+        if (questionRepo.findByQuestion(newQuestion.getQuestion()).isPresent()){
+            throw new IllegalArgumentException("Frage existiert schon");
+        }
         return questionRepo.save(newQuestion);
     }
 }
