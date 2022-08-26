@@ -20,7 +20,7 @@ Get in touch with me, and I´ll hand you the login and DB credentials.
 - Get the credentials
 - Set the AtlasDB Uri in `backend/src/main/resources/application.properties`
 - Start the application (Front- and Backend)
-- You can login with the given credentials
+- Register or login and let`s go!
 
 ## Problems
 - If you encounter any problems using this template, please let me know by stating an issue on GitHub.
