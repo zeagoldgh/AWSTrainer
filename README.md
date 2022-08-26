@@ -1,6 +1,6 @@
 # AWS Trainer
 
-Test your knowledge about AWS services. with questions like int the actual exam. You can take complete practice-exams or
+Test your knowledge about AWS services. with questions like in the actual exam. You can take complete practice-exams or
 short test. 
 
 ## Current Training Exams:
@@ -18,10 +18,10 @@ Get in touch with me, and I´ll hand you the login and DB credentials.
 
 ## How to run
 - Get the credentials
-- Set the AtlasDB Uri under `application.properties`
+- Set the AtlasDB Uri in `backend/src/main/resources/application.properties`
 - Start the application (Front- and Backend)
 - You can login with the given credentials
 
-## - Problems
+## Problems
 - If you encounter any problems using this template, please let me know by stating an issue on GitHub.
 
