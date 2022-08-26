@@ -1,7 +1,6 @@
 import LoginInput from "../Input/LoginInput";
 import SubmitButton from "../Buttons/SubmitButton";
 import React, {FormEvent, useState} from "react";
-import axios from "axios";
 import {useAuth} from "../../auth/AuthProvider";
 import {useNavigate} from "react-router-dom";
 import {registerUser} from "../../service/apiService";
