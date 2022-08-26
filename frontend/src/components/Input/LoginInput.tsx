@@ -12,9 +12,9 @@ export default function LoginInput(props:LoginInputProps){
     return(
         <div className={'loginInput '}>
             <div className="nes-field">
-                <label htmlFor="name_field">{props.placeholder}</label>
+                <label htmlFor={`${props.placeholder}_field`}>{props.placeholder}</label>
                 <input
-                    id="name_field"
+                    id={`${props.placeholder}_field`}
                     className={"nes-input"}
                     type={props.isPassword?"password":"text"}
                     value={props.value}

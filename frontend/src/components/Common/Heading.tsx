@@ -14,15 +14,15 @@ export default function Heading({location}:HeadingProps){
 
     return(
         <div className={"heading"}>
-            <div className="nes-container is-rounded container" onClick={()=> nav("/")}>
+            <div className="nes-container is-rounded container">
                 <a target="_blank" rel="noopener noreferrer" href="https://aws.amazon.com/de/?nc2=h_lg">
                 <img className={" nes-avatar is-medium"} src={awsLogo} alt="AWS cube icon"/>
                 </a>
-                <h1 className={"nes-text is-primary"}>AWS Trainer</h1>
+                <h1 className={"nes-text is-primary"} onClick={()=> nav("/")}>AWS Trainer</h1>
                 {
                     location ==="home"
                         ?
-                        <Link to={"/user"}>
+                        <Link to={'user'} >
                             <img className={"nes-avatar is-medium"} src={userLogo} alt="AWS user icon"/>
                         </Link>
                         :
