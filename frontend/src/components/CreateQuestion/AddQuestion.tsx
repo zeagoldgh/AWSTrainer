@@ -1,14 +1,16 @@
 import TextArea from "./TextArea";
-import React from "react";
+import React, {useState} from "react";
 import '../../font.css'
+import Checkbox from "../Common/Checkbox";
 
 export default function AddQuestion(){
+
+    const [multi, setMulti] = useState(false)
+
+
     return(
         <div>
-            <label>
-                <input type="checkbox" className="nes-checkbox" checked/>
-                <span>Multiple Choice</span>
-            </label>
+            <Checkbox text={'Multiple Choice?'} isChecked={multi} toggle={()=>setMulti(!multi)}/>
             <TextArea/>
             <div className="nes-field">
                 <label htmlFor="name_field">Antwort 1</label>
