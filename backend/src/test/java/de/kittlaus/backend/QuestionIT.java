@@ -56,6 +56,28 @@ public class QuestionIT {
         assert actual != null;
     }
 
+    @Test
+    void shouldNotPostQuestionAlreadyPresent(){
+        //GIVEN
+        Token token = getJWT("Kim");
+        Question question = Question.builder()
+                .question("Was ist aws?")
+                .answers(new String[]{"Bla","bla","bla","Cloudgedöns","bla"})
+                .indexRightAnswer(new int[]{3})
+                .category(Category.CLOUD)
+                .certType(CertType.CLF_C01)
+                .build();
+        restTemplate.exchange("/api/question", HttpMethod.POST, new HttpEntity<>(question,createHeaders(token.getToken())), Question.class);
+        //WHEN
+        ResponseEntity<Question> actualResponse = restTemplate.exchange("/api/question", HttpMethod.POST, new HttpEntity<>(question,createHeaders(token.getToken())), Question.class);
+        //THEN
+        assertThat(actualResponse.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        Question actual = actualResponse.getBody();
+        assert actual != null;
+    }
+
+
+
 
     //Hilfsmethoden
 
