@@ -1,5 +1,7 @@
 package de.kittlaus.backend;
 
+import de.kittlaus.backend.models.questions.Category;
+import de.kittlaus.backend.models.questions.CertType;
 import de.kittlaus.backend.models.questions.Question;
 import de.kittlaus.backend.models.security.Credentials;
 import de.kittlaus.backend.models.security.Token;
@@ -39,7 +41,13 @@ public class QuestionIT {
     void shouldPostNewQuestion(){
         //GIVEN
         Token token = getJWT("Kim");
-        Question question = Question.builder().build();
+        Question question = Question.builder()
+                .question("Was ist aws?")
+                .answers(new String[]{"Bla","bla","bla","Cloudgedöns","bla"})
+                .indexRightAnswer(new int[]{3})
+                .category(Category.CLOUD)
+                .certType(CertType.CLF_C01)
+                .build();
         //WHEN
         ResponseEntity<Question> actualResponse = restTemplate.exchange("/api/question", HttpMethod.POST, new HttpEntity<>(question,createHeaders(token.getToken())), Question.class);
         //THEN
