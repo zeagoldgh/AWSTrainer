@@ -2,37 +2,41 @@ import TextArea from "./TextArea";
 import React, {useState} from "react";
 import '../../font.css'
 import Checkbox from "../Common/Checkbox";
+import InputQuestion from "./InputQuestion";
 
 export default function AddQuestion(){
 
     const [multi, setMulti] = useState(false)
     const [question, setQuestion] = useState('')
+    const [singleAnswers, setSingleAnswers] = useState<string[]>(["","","",""])
+    const [multiAnswers, setMultiAnswers] = useState<string[]>(["","","","",""])
+
+
+    const handleChange = (text : string, index : number)=>{
+        if (multi){
+            let answers = [...multiAnswers]
+            answers[index] = text
+            setMultiAnswers(answers)
+        } else {
+            let answers = [...singleAnswers]
+            answers[index] = text
+            setSingleAnswers(answers)
+        }
+
+    }
 
 
     return(
         <div>
             <Checkbox text={'Multiple Choice?'} isChecked={multi} toggle={()=>setMulti(!multi)}/>
             <TextArea value={question} onChange={setQuestion}/>
-            <div className="nes-field">
-                <label htmlFor="name_field">Antwort 1</label>
-                <input type="text" id="name_field" className="nes-input betterRead"/>
-            </div>
-            <div className="nes-field">
-                <label htmlFor="name_field">Antwort 2</label>
-                <input type="text" id="name_field" className="nes-input betterRead"/>
-            </div>
-            <div className="nes-field">
-                <label htmlFor="name_field">Antwort 3</label>
-                <input type="text" id="name_field" className="nes-input betterRead"/>
-            </div>
-            <div className="nes-field">
-                <label htmlFor="name_field">Antwort 4</label>
-                <input type="text" id="name_field" className="nes-input betterRead"/>
-            </div>
-            <div className="nes-field">
-                <label htmlFor="name_field">Antwort 5</label>
-                <input type="text" id="name_field" className="nes-input betterRead"/>
-            </div>
+            {
+                multi
+                ?
+                    multiAnswers.map((answer : string,index : number)=><InputQuestion key={`${index}_multi`} index={index} text={answer} handleChange={handleChange}/>)
+                    :
+                    singleAnswers.map((answer : string,index : number)=><InputQuestion key={`${index}_single`} index={index} text={answer} handleChange={handleChange}/>)
+            }
             <label htmlFor="success_select">Welche Prüfung?</label>
             <div className="nes-select is-success">
                 <select required id="success_select">

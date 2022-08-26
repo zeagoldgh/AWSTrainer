@@ -13,6 +13,7 @@ export default function Checkbox({toggle,text,isChecked}:CheckboxProps){
                 type="checkbox"
                 className="nes-checkbox"
                 checked={isChecked}
+                readOnly
             />
             <span>{text}</span>
         </div>
