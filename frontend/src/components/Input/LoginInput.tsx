@@ -10,14 +10,18 @@ interface LoginInputProps{
 
 export default function LoginInput(props:LoginInputProps){
     return(
-        <div className={'loginInput'}>
-            <input
-                className={"nes-input textInput"}
-                type={props.isPassword?"password":"text"}
-                placeholder={props.placeholder}
-                value={props.value}
-                onChange={ev => props.onChange(ev.target.value)}
-            />
+        <div className={'loginInput '}>
+            <div className="nes-field">
+                <label htmlFor="name_field">{props.placeholder}</label>
+                <input
+                    id="name_field"
+                    className={"nes-input"}
+                    type={props.isPassword?"password":"text"}
+                    value={props.value}
+                    onChange={ev => props.onChange(ev.target.value)}
+                />
+            </div>
+
         </div>
     )
 }
