@@ -6,12 +6,13 @@ import Checkbox from "../Common/Checkbox";
 export default function AddQuestion(){
 
     const [multi, setMulti] = useState(false)
+    const [question, setQuestion] = useState('')
 
 
     return(
         <div>
             <Checkbox text={'Multiple Choice?'} isChecked={multi} toggle={()=>setMulti(!multi)}/>
-            <TextArea/>
+            <TextArea value={question} onChange={setQuestion}/>
             <div className="nes-field">
                 <label htmlFor="name_field">Antwort 1</label>
                 <input type="text" id="name_field" className="nes-input betterRead"/>
