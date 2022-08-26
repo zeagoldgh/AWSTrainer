@@ -21,7 +21,7 @@ export const buttons = [
     },
     {
         color : "warning",
-        text : "Billing &Pricing",
+        text : "Billing & Pricing",
         destination : "/quick?category=billing"
     },
     {
