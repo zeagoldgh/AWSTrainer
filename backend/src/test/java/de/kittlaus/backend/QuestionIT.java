@@ -41,7 +41,7 @@ public class QuestionIT {
         Token token = getJWT("Kim");
         Question question = Question.builder().build();
         //WHEN
-        ResponseEntity<Question> actualResponse = restTemplate.exchange("/api/question", HttpMethod.POST, new HttpEntity<>(createHeaders(token.getToken())), Question.class,question);
+        ResponseEntity<Question> actualResponse = restTemplate.exchange("/api/question", HttpMethod.POST, new HttpEntity<>(question,createHeaders(token.getToken())), Question.class);
         //THEN
         assertThat(actualResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         Question actual = actualResponse.getBody();
