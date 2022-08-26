@@ -3,6 +3,7 @@ import SubmitButton from "../Buttons/SubmitButton";
 import React, {FormEvent, useState} from "react";
 import axios from "axios";
 import {useAuth} from "../../auth/AuthProvider";
+import {useNavigate} from "react-router-dom";
 
 interface LoginRegisterFormProps{
     isRegister : boolean
@@ -17,6 +18,7 @@ export default function LoginRegisterForm({isRegister,toggle}:LoginRegisterFormP
     const [error, setError] = useState('')
 
     const auth = useAuth()
+    const nav = useNavigate()
 
     const createUser = (event : FormEvent) => {
         event.preventDefault()
@@ -44,6 +46,7 @@ export default function LoginRegisterForm({isRegister,toggle}:LoginRegisterFormP
         event.preventDefault()
         setError('')
         auth.login(username,password)
+            .then(()=>nav("/"))
             .catch(e => setError(e.message))
         setUsername('')
         setPassword('')
@@ -65,13 +68,13 @@ export default function LoginRegisterForm({isRegister,toggle}:LoginRegisterFormP
                     value={password}
                     onChange={setPassword}
                 />
-                {isRegister && <LoginInput
-                    isPassword
-                    placeholder={'Passwort wiederholen'}
-                    value={passwordTwo}
-                    onChange={setPasswordTwo}
-                />}
-                <SubmitButton text={isRegister?"Registrieren":"Login"}/>
+                    {isRegister && <LoginInput
+                        isPassword
+                        placeholder={'Passwort wiederholen'}
+                        value={passwordTwo}
+                        onChange={setPasswordTwo}
+                    />}
+                    <SubmitButton text={isRegister?"Registrieren":"Login"}/>
             </form>
             {error && <h1 className={"nes-text is-error"}>{error}</h1>}
         </div>

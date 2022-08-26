@@ -1,4 +1,5 @@
 import React from "react";
+import './LoginInput.css';
 
 interface LoginInputProps{
     isPassword ?: boolean
@@ -9,9 +10,9 @@ interface LoginInputProps{
 
 export default function LoginInput(props:LoginInputProps){
     return(
-        <div>
+        <div className={'loginInput'}>
             <input
-                className={"nes-input"}
+                className={"nes-input textInput"}
                 type={props.isPassword?"password":"text"}
                 placeholder={props.placeholder}
                 value={props.value}
