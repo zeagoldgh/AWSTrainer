@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import LoginRegisterForm from "../components/LoginPage/LoginRegisterForm";
+import Heading from "../components/Common/Heading";
 
 export default function LoginPage() {
 
@@ -12,6 +13,7 @@ export default function LoginPage() {
 
     return (
         <div className="App">
+            <Heading location={'login'}/>
             <LoginRegisterForm isRegister={registerForm} toggle={toggle}/>
             <button className={"nes-btn is-success"} onClick={toggle}>
                 {registerForm?"Zum Login":"Zur Registrierung"}
