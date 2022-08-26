@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/question")
@@ -14,7 +16,10 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @PostMapping
-    public ResponseEntity<Question> postNewQuestion(@RequestBody Question newQuestion){
+    public ResponseEntity<Question> postNewQuestion(@RequestBody Question newQuestion, Principal principal){
+        if (!principal.getName().equals("Droggelbecher92")){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Question.builder().build());
+        }
         try {
             Question question = questionService.saveNewQuestion(newQuestion);
             return ResponseEntity.status(HttpStatus.CREATED).body(question);

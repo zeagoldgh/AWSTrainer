@@ -10,6 +10,7 @@ import de.kittlaus.backend.models.user.MyUserDto;
 import de.kittlaus.backend.questions.QuestionRepo;
 import de.kittlaus.backend.user.UserRepo;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,17 +31,18 @@ public class QuestionIT {
     @Autowired
     private QuestionRepo questionRepo;
 
-    @AfterEach
+    @BeforeEach
     void cleanupDb() {
         userRepo.deleteAll();
         questionRepo.deleteAll();
     }
 
 
+
     @Test
     void shouldPostNewQuestion(){
         //GIVEN
-        Token token = getJWT("Kim");
+        Token token = getJWT("Droggelbecher92");
         Question question = Question.builder()
                 .question("Was ist aws?")
                 .answers(new String[]{"Bla","bla","bla","Cloudgedöns","bla"})
@@ -59,7 +61,7 @@ public class QuestionIT {
     @Test
     void shouldNotPostQuestionAlreadyPresent(){
         //GIVEN
-        Token token = getJWT("Kim");
+        Token token = getJWT("Droggelbecher92");
         Question question = Question.builder()
                 .question("Was ist aws?")
                 .answers(new String[]{"Bla","bla","bla","Cloudgedöns","bla"})
@@ -72,9 +74,26 @@ public class QuestionIT {
         ResponseEntity<Question> actualResponse = restTemplate.exchange("/api/question", HttpMethod.POST, new HttpEntity<>(question,createHeaders(token.getToken())), Question.class);
         //THEN
         assertThat(actualResponse.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-        Question actual = actualResponse.getBody();
-        assert actual != null;
     }
+
+    @Test
+    void shouldNotPostQuestionIfNotDroggelbecher92(){
+        //GIVEN
+        Token token = getJWT("BadGuy");
+        Question question = Question.builder()
+                .question("Was ist aws?")
+                .answers(new String[]{"Bla","bla","bla","Cloudgedöns","bla"})
+                .indexRightAnswer(new int[]{3})
+                .category(Category.CLOUD)
+                .certType(CertType.CLF_C01)
+                .build();
+        restTemplate.exchange("/api/question", HttpMethod.POST, new HttpEntity<>(question,createHeaders(token.getToken())), Question.class);
+        //WHEN
+        ResponseEntity<Question> actualResponse = restTemplate.exchange("/api/question", HttpMethod.POST, new HttpEntity<>(question,createHeaders(token.getToken())), Question.class);
+        //THEN
+        assertThat(actualResponse.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+    }
+
 
 
 
