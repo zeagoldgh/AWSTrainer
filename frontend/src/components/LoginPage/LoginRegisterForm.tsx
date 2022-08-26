@@ -2,19 +2,21 @@ import LoginInput from "../Input/LoginInput";
 import SubmitButton from "../Buttons/SubmitButton";
 import React, {FormEvent, useState} from "react";
 import axios from "axios";
-import {loginUser} from "../../service/apiService";
+import {useAuth} from "../../auth/AuthProvider";
 
 interface LoginRegisterFormProps{
     isRegister : boolean
+    toggle : ()=>void
 }
 
-export default function LoginRegisterForm({isRegister}:LoginRegisterFormProps){
+export default function LoginRegisterForm({isRegister,toggle}:LoginRegisterFormProps){
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [passwordTwo, setPasswordTwo] = useState('')
-    const [token, setToken] = useState('')
     const [error, setError] = useState('')
+
+    const auth = useAuth()
 
     const createUser = (event : FormEvent) => {
         event.preventDefault()
@@ -32,9 +34,8 @@ export default function LoginRegisterForm({isRegister}:LoginRegisterFormProps){
                         setError(e.message)
                     }
                 })
-            setUsername('')
-            setPassword('')
             setPasswordTwo('')
+            toggle()
         }
 
     }
@@ -42,8 +43,7 @@ export default function LoginRegisterForm({isRegister}:LoginRegisterFormProps){
     const login = (event : FormEvent) => {
         event.preventDefault()
         setError('')
-        loginUser(username,password)
-            .then(data => setToken(data.token))
+        auth.login(username,password)
             .catch(e => setError(e.message))
         setUsername('')
         setPassword('')

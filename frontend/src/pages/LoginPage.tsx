@@ -12,7 +12,7 @@ export default function LoginPage() {
 
     return (
         <div className="App">
-            <LoginRegisterForm isRegister={registerForm}/>
+            <LoginRegisterForm isRegister={registerForm} toggle={toggle}/>
             <button className={"nes-btn is-success"} onClick={toggle}>
                 {registerForm?"Zum Login":"Zur Registrierung"}
             </button>
