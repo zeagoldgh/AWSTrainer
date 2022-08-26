@@ -5,7 +5,6 @@ import de.kittlaus.backend.models.user.MyUser;
 import de.kittlaus.backend.models.user.MyUserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -17,14 +16,10 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
-    //TODO: Remove when done
     @PostMapping
     public ResponseEntity<MyUser> createUser(@RequestBody MyUser user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("USER");
-        return userService.createUser(user);
+        return userService.checkAndCreate(user);
     }
 
     @GetMapping("/me")

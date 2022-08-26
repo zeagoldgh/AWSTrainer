@@ -7,7 +7,7 @@ export default function Heading(){
     const nav = useNavigate()
 
     return(
-        <div className={logo}>
+        <div className={"heading"}>
             <div className="nes-container is-rounded container" onClick={()=> nav("/")}>
                 <img className={" nes-avatar is-medium"} src={logo} alt="AWS cube icon"/>
                 <h1 className={"nes-text is-primary"}>AWS Trainer</h1>

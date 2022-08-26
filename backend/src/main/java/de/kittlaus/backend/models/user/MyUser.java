@@ -14,6 +14,7 @@ public class MyUser {
 
     private String username;
     private String password;
+    private String passwordAgain;
     private String role;
 
 
