@@ -1,16 +1,21 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import ExamplePage from "./ExamplePage";
-import TestPage from "./TestPage";
+import LoginPage from "./pages/LoginPage";
+import AuthProvider from "./auth/AuthProvider";
+import HomePage from "./pages/HomePage";
+import Heading from "./components/Common/Heading";
 
 export default function App() {
-    return(
+    return (
         <BrowserRouter>
-            <Routes>
-                <Route path={'/'} element={<ExamplePage/>}/>
-                <Route path={'/testme'} element={<TestPage/>}/>
-            </Routes>
+            <AuthProvider>
+                <Heading/>
+                <Routes>
+                    <Route path={'/'} element={<HomePage/>}/>
+                    <Route path={'/login'} element={<LoginPage/>}/>
+                </Routes>
+            </AuthProvider>
         </BrowserRouter>
     )
 }

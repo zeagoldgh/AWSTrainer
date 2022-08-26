@@ -19,6 +19,7 @@ public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
+    //TODO: Remove when done
     @PostMapping
     public ResponseEntity<MyUser> createUser(@RequestBody MyUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
