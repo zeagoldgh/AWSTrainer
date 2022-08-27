@@ -1,5 +1,5 @@
 import TextArea from "./TextArea";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import '../../font.css'
 import './AddQuestion.css'
 import Checkbox from "../Common/Checkbox";
@@ -18,6 +18,20 @@ export default function AddQuestion(){
     const [category, setCategory] = useState("nope")
     const [correctSingle , setCorrectSingle] = useState("nope")
     const [correctMulti , setCorrectMulti] = useState([false,false,false,false,false])
+    const [button, setButton] = useState(false)
+
+    useEffect(()=>{
+        if (multi){
+            const emptyAnswers = multiAnswers.filter(str => str.length<2)
+            const correctAnswers = correctMulti.filter(bool => bool)
+            setButton(question.length>1&&emptyAnswers.length===0&&correctAnswers.length>=2&&exam!=="nope"&&category!=="nope")
+            console.log("1")
+        } else {
+            const emptyAnswers = singleAnswers.filter(str => str.length<2)
+            setButton(question.length>1&&emptyAnswers.length===0&&correctSingle!=="nope"&&exam!=="nope"&&category!=="nope")
+            console.log("2")
+        }
+    },[category,correctMulti,correctSingle,exam,multi,multiAnswers,question,singleAnswers])
 
 
     const handleChange = (text : string, index : number)=>{
@@ -55,7 +69,7 @@ export default function AddQuestion(){
                     :
                     <SelectorsCreate label={"Richtige Antwort"} options={singleAnswerChoice} value={correctSingle} color={"error"} handleChange={setCorrectSingle}/>
             }
-            <button type="button" className="nes-btn is-success">Speichern</button>
+            {button&& <button type="button" className="nes-btn is-error">Speichern</button>}
         </div>
     )
 }

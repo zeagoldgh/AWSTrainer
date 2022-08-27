@@ -16,7 +16,7 @@ export default function SelectorsCreate({label,options,value,handleChange,color}
         <div>
             <label htmlFor="success_select">{label}</label>
             <div className={`nes-select is-${color}`}>
-                <select required id={`success_select_${label}`} defaultValue={value} onSelect={event => handleChange(event.currentTarget.value)}>
+                <select required id={`success_select_${label}`} defaultValue={value} onChange={event => handleChange(event.target.value)}>
                     <option value="nope" disabled hidden>Select...</option>
                     {
                         options.map((option ,index) => <
