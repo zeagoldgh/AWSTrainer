@@ -2,12 +2,14 @@ package de.kittlaus.backend.user;
 
 import de.kittlaus.backend.models.user.MyUser;
 import de.kittlaus.backend.models.user.MyUserDto;
+import de.kittlaus.backend.models.user.TrainerUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -17,12 +19,13 @@ public class UserService {
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
 
-    public Optional<MyUser> findByUsername(String username) {
+    public Optional<TrainerUser> findByUsername(String username) {
         return userRepo.findByUsername(username);
     }
 
     public ResponseEntity<MyUserDto> createUser(MyUser user) {
-        MyUser savedUser = userRepo.save(user);
+        TrainerUser save = TrainerUser.builder().role(user.getRole()).username(user.getUsername()).password(user.getPassword()).examsTaken(new ArrayList<>()).build();
+        TrainerUser savedUser = userRepo.save(save);
         return ResponseEntity.status(HttpStatus.CREATED).body(MyUserDto.builder().role(savedUser.getRole()).username(savedUser.getUsername()).build());
     }
 
