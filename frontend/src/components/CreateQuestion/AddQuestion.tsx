@@ -1,6 +1,7 @@
 import TextArea from "./TextArea";
 import React, {useState} from "react";
 import '../../font.css'
+import './AddQuestion.css'
 import Checkbox from "../Common/Checkbox";
 import InputQuestion from "./InputQuestion";
 
@@ -27,7 +28,7 @@ export default function AddQuestion(){
 
 
     return(
-        <div>
+        <div className={'addQuestion'}>
             <Checkbox text={'Multiple Choice?'} isChecked={multi} toggle={()=>setMulti(!multi)}/>
             <TextArea value={question} onChange={setQuestion}/>
             {
@@ -55,16 +56,26 @@ export default function AddQuestion(){
                     <option value="TECHNOLOGY">Technology</option>
                 </select>
             </div>
-            <label htmlFor="error_select">Richtige Antwort</label>
-            <div className="nes-select is-error">
-                <select required id="error_select" defaultValue={"nope"}>
-                    <option value="nope" disabled hidden>Select...</option>
-                    <option value="0">1</option>
-                    <option value="1">2</option>
-                    <option value="2">3</option>
-                    <option value="3">4</option>
-                </select>
-            </div>
+            {
+                multi
+                ?
+                    <div>
+
+                    </div>
+                    :
+                    <div>
+                        <label htmlFor="error_select">Richtige Antwort</label>
+                        <div className="nes-select is-error">
+                            <select required id="error_select" defaultValue={"nope"}>
+                                <option value="nope" disabled hidden>Select...</option>
+                                <option value="0">1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                            </select>
+                        </div>
+                    </div>
+            }
             <button type="button" className="nes-btn is-success">Speichern</button>
         </div>
     )
