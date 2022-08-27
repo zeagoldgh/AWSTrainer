@@ -17,6 +17,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Objects;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -100,11 +104,13 @@ public class QuestionIT {
         Token token = getJWT("Droggelbecher92");
         fillDBWithQuestions(20,token);
         //WHEN
-        ResponseEntity<Question[]> actualResponse1 = restTemplate.exchange("/api/question", HttpMethod.GET, new HttpEntity<>(createHeaders(token.getToken())), Question[].class);
-        ResponseEntity<Question[]> actualResponse2 = restTemplate.exchange("/api/question", HttpMethod.GET, new HttpEntity<>(createHeaders(token.getToken())), Question[].class);
+        ResponseEntity<Question[]> actualResponse1 = restTemplate.exchange("/api/question/random/5", HttpMethod.GET, new HttpEntity<>(null,createHeaders(token.getToken())), Question[].class);
+        ResponseEntity<Question[]> actualResponse2 = restTemplate.exchange("/api/question/random/5", HttpMethod.GET, new HttpEntity<>(null,createHeaders(token.getToken())), Question[].class);
         //THEN
         assertThat(actualResponse1.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(actualResponse2.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(Objects.requireNonNull(actualResponse1.getBody()).length).isEqualTo(5);
+        assertThat(Objects.requireNonNull(actualResponse2.getBody()).length).isEqualTo(5);
         assertThat(actualResponse1.getBody()).isNotEqualTo(actualResponse2.getBody());
     }
 
@@ -129,17 +135,17 @@ public class QuestionIT {
     }
 
     void fillDBWithQuestions(int howMany, Token token){
-        int counter = 1;
-        while (counter<=howMany){
-            Question question = Question.builder()
-                    .question("Was ist aws?"+howMany)
+        Question question;
+        for (int counter = 1; counter <= howMany; counter++) {
+            question = Question.builder()
+                    .question("Was ist aws?"+counter)
                     .answers(new String[]{"Bla","bla","bla","Cloudgedöns","bla"})
                     .indexRightAnswer(new int[]{3})
                     .category(generateCategory(counter))
                     .certType(CertType.CLF_C01)
                     .build();
             restTemplate.exchange("/api/question", HttpMethod.POST, new HttpEntity<>(question,createHeaders(token.getToken())), Question.class);
-            counter++;
+
         }
 
     }

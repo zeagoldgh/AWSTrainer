@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,6 +27,11 @@ public class QuestionController {
         } catch (IllegalArgumentException e){
             return ResponseEntity.badRequest().body(Question.builder().build());
         }
+    }
+
+    @GetMapping("/random/{howMany}")
+    public List<Question> getRandomQuestions(@PathVariable int howMany){
+        return questionService.getRandomQuestions(howMany);
     }
 
 }
