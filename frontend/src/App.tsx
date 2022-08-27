@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import AuthProvider from "./auth/AuthProvider";
 import HomePage from "./pages/HomePage";
+import CreateQuestion from "./pages/CreateQuestion";
 
 export default function App() {
     return (
@@ -13,6 +14,7 @@ export default function App() {
                     <Route path={'/'} element={<HomePage/>}/>
                     <Route path={'/login'} element={<LoginPage/>}/>
                     <Route path={'/user'} element={<LoginPage/>}/>
+                    <Route path={'/add'} element={<CreateQuestion/>}/>
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
