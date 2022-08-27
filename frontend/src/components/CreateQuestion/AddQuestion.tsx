@@ -49,6 +49,10 @@ export default function AddQuestion() {
         }
     }
 
+    const clear = () => {
+        window.location.reload()
+    }
+
     const handleMultiAnswers = (index: number) => {
         let correct = [...correctMulti]
         correct[index] = !correct[index]
@@ -82,6 +86,7 @@ export default function AddQuestion() {
         }
         postNewQuestion(newQuestion,auth.token)
             .then(data => console.log(data))
+            .then(()=> clear())
             .catch(err => console.log(err.message))
 
     }
