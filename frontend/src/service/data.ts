@@ -35,3 +35,70 @@ export const buttons = [
         destination : "/add"
     }
 ]
+export const exams =[
+    {
+        key : "CLF-C01",
+        name : "CLF-C01"
+    }
+]
+
+export const categories = [
+    {
+        key:"CLOUD",
+        name : "Cloud Concepts",
+    },
+    {
+        key:"SECURITY",
+        name : "Security and Compliance",
+    },
+    {
+        key:"BILLING",
+        name : "Billing & Pricing",
+    },
+    {
+        key:"TECHNOLOGY",
+        name : "Technology",
+    }
+]
+
+export const singleAnswerChoice = [
+    {
+        key:"0",
+        name : "1",
+    },
+    {
+        key:"1",
+        name : "2",
+    },
+    {
+        key:"2",
+        name : "3",
+    },
+    {
+        key:"3",
+        name : "4",
+    }
+]
+
+export const multiAnswerChoice = [
+    {
+        key:"0",
+        name : "1",
+    },
+    {
+        key:"1",
+        name : "2",
+    },
+    {
+        key:"2",
+        name : "3",
+    },
+    {
+        key:"3",
+        name : "4",
+    },
+    {
+        key:"4",
+        name : "5",
+    }
+]
