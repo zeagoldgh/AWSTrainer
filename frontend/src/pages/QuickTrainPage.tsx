@@ -9,6 +9,7 @@ import Heading from "../components/Common/Heading";
 export default function QuickTrainPage(){
 
     const [questions, setQuestions] = useState<QuestionEntity[]>()
+    const [index, setIndex] = useState(0)
 
     const nav = useNavigate()
     const {token} = useAuth()
@@ -33,7 +34,25 @@ export default function QuickTrainPage(){
             <Heading location={"/quickTrain"}/>
             {
                 questions?
-                    <i className="nes-ash"></i>
+                    <div>
+                        <h1>{questions[index].question}</h1>
+                        <ul>
+                            <li>{questions[index].answers[0]}</li>
+                            <li>{questions[index].answers[1]}</li>
+                            <li>{questions[index].answers[2]}</li>
+                            <li>{questions[index].answers[3]}</li>
+                        </ul>
+                        <button>next</button>
+                        <button>prev</button>
+                        <button>Absenden</button>
+                        <div>
+                            {
+                                questions.map((q,i)=>{
+                                    return  <button key={i}>{i+1}</button>
+                                })
+                            }
+                        </div>
+                    </div>
                     :
                     <i className="nes-kirby"></i>
             }
