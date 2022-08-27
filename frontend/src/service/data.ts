@@ -7,7 +7,7 @@ export const buttons = [
     {
         color : "success",
         text : "Quick Train",
-        destination : "/quick"
+        destination : "/quickTrain"
     },
     {
         color : "warning",
