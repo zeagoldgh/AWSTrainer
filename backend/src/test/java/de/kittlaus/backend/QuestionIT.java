@@ -94,6 +94,20 @@ public class QuestionIT {
         assertThat(actualResponse.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
     }
 
+    @Test
+    void shouldGet5RandomQuestions(){
+        //GIVEN
+        Token token = getJWT("Droggelbecher92");
+        fillDBWithQuestions(20,token);
+        //WHEN
+        ResponseEntity<Question[]> actualResponse1 = restTemplate.exchange("/api/question", HttpMethod.GET, new HttpEntity<>(createHeaders(token.getToken())), Question[].class);
+        ResponseEntity<Question[]> actualResponse2 = restTemplate.exchange("/api/question", HttpMethod.GET, new HttpEntity<>(createHeaders(token.getToken())), Question[].class);
+        //THEN
+        assertThat(actualResponse1.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(actualResponse2.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(actualResponse1.getBody()).isNotEqualTo(actualResponse2.getBody());
+    }
+
 
 
 
@@ -112,6 +126,34 @@ public class QuestionIT {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", authHeaderValue);
         return headers;
+    }
+
+    void fillDBWithQuestions(int howMany, Token token){
+        int counter = 1;
+        while (counter<=howMany){
+            Question question = Question.builder()
+                    .question("Was ist aws?"+howMany)
+                    .answers(new String[]{"Bla","bla","bla","Cloudgedöns","bla"})
+                    .indexRightAnswer(new int[]{3})
+                    .category(generateCategory(counter))
+                    .certType(CertType.CLF_C01)
+                    .build();
+            restTemplate.exchange("/api/question", HttpMethod.POST, new HttpEntity<>(question,createHeaders(token.getToken())), Question.class);
+            counter++;
+        }
+
+    }
+
+    Category generateCategory(int counter){
+        int num = counter%4;
+        Category category;
+        switch (num){
+            case 1 -> category = Category.CLOUD;
+            case 2 -> category = Category.BILLING;
+            case 3 -> category = Category.SECURITY;
+            default -> category = Category.TECHNOLOGY;
+        }
+        return category;
     }
 
 }
