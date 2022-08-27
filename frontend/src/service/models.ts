@@ -21,3 +21,20 @@ export interface JwtToken {
     iat : number,
     exp: number
 }
+
+export interface NewQuestion {
+    question :string,
+    answers : string[],
+    indexRightAnswer : number[],
+    category : string,
+    certType : string
+}
+
+export interface QuestionEntity {
+    id : string
+    question :string,
+    answers : string[],
+    indexRightAnswer : number[],
+    category : string,
+    certType : string
+}
