@@ -82,23 +82,23 @@ export const singleAnswerChoice = [
 
 export const multiAnswerChoice = [
     {
-        key:"0",
+        key:false,
         name : "1",
     },
     {
-        key:"1",
+        key:false,
         name : "2",
     },
     {
-        key:"2",
+        key:false,
         name : "3",
     },
     {
-        key:"3",
+        key:false,
         name : "4",
     },
     {
-        key:"4",
+        key:false,
         name : "5",
     }
 ]

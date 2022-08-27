@@ -5,7 +5,8 @@ import './AddQuestion.css'
 import Checkbox from "../Common/Checkbox";
 import InputQuestion from "./InputQuestion";
 import SelectorsCreate from "./SelectorsCreate";
-import {exams,categories,singleAnswerChoice} from "../../service/data";
+import {exams,categories,singleAnswerChoice,multiAnswerChoice} from "../../service/data";
+import MultiCorrectChoice from "./MultiCorrectChoice";
 
 export default function AddQuestion(){
 
@@ -16,7 +17,7 @@ export default function AddQuestion(){
     const [exam , setExam] = useState("nope")
     const [category, setCategory] = useState("nope")
     const [correctSingle , setCorrectSingle] = useState("nope")
-    const [correctMulti , setCorrectMulti] = useState("nope")
+    const [correctMulti , setCorrectMulti] = useState([false,false,false,false,false])
 
 
     const handleChange = (text : string, index : number)=>{
@@ -29,6 +30,12 @@ export default function AddQuestion(){
             answers[index] = text
             setSingleAnswers(answers)
         }
+    }
+
+    const handleMultiAnswers = (index : number) =>{
+        let correct = [...correctMulti]
+        correct[index] = !correct[index]
+        setCorrectMulti(correct)
     }
 
 
@@ -44,7 +51,7 @@ export default function AddQuestion(){
             <SelectorsCreate label={"Welche Prüfung?"} color={'success'} options={exams} value={exam} handleChange={setExam}/>
             <SelectorsCreate label={"Welche Kategorie?"} color={'warning'} options={categories} value={category} handleChange={setCategory}/>
             {multi ?
-                    <div></div>
+                    <MultiCorrectChoice choices={multiAnswerChoice} handleChange={handleMultiAnswers} checked={correctMulti}/>
                     :
                     <SelectorsCreate label={"Richtige Antwort"} options={singleAnswerChoice} value={correctSingle} color={"error"} handleChange={setCorrectSingle}/>
             }
