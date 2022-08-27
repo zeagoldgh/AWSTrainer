@@ -1,6 +1,10 @@
 import axios, {AxiosResponse} from "axios";
 import {LoginResponseBody, NewQuestion, QuestionEntity} from "./models";
 
+//GLOBALS
+
+const NUMBER_OF_RANDOM = 5
+
 //Security
 
 export const loginUser = (username:string, password:string) => {
@@ -19,6 +23,11 @@ export const registerUser = (username:string,password:string,passwordTwo:string)
 export const postNewQuestion = (question:NewQuestion,token:string)=>{
     return axios.post("/api/question",question,headers(token))
         .then((response: AxiosResponse<QuestionEntity>) => response.data)
+}
+
+export const getRandomQuestions = (token : string) =>{
+    return axios.get(`/api/question/random/${NUMBER_OF_RANDOM}`,headers(token))
+        .then((response : AxiosResponse<QuestionEntity[]>)=> response.data)
 }
 
 //Hilfsmethoden
