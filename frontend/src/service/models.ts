@@ -25,7 +25,7 @@ export interface JwtToken {
 export interface NewQuestion {
     question :string,
     answers : string[],
-    indexRightAnswer : number[],
+    rightAnswers : boolean[],
     category : string,
     certType : string
 }
@@ -34,7 +34,7 @@ export interface QuestionEntity {
     id : string
     question :string,
     answers : string[],
-    indexRightAnswer : number[],
+    rightAnswers : boolean[],
     category : string,
     certType : string
 }

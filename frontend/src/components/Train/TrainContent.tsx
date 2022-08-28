@@ -65,12 +65,13 @@ export default function TrainContent({fetch}: TrainContentProps) {
                     questionsAnswerd++
                 } else {
                     const answered = givenAnswers[i].givenAnswers.filter(answer => answer)
-                    if (questions[i].indexRightAnswer.length===answered.length) {
+                    const needToAnswer = questions[i].rightAnswers.filter(answer => answer)
+                    if (needToAnswer.length === answered.length) {
                         questionsAnswerd++
                     }
                 }
             }
-            return questionsAnswerd/total*100
+            return questionsAnswerd / total * 100
         }
         return 0
     }
@@ -81,12 +82,14 @@ export default function TrainContent({fetch}: TrainContentProps) {
                 questions && givenAnswers.length > 3 ?
                     <div>
                         <QuestionBox text={questions[index].question}
-                                     toChoose={questions[index].answers.length === 5 ? questions[index].indexRightAnswer.length : 1}/>
+                                     toChoose={questions[index].answers.length === 5 ? questions[index].rightAnswers.filter(answer => answer).length : 1}/>
                         <ChoiceArea answers={questions[index].answers} givenAnswers={givenAnswers[index].givenAnswers}
                                     handleAnswer={handleAnswer}/>
-                        <TrainNavigationButtons index={index} setIndex={setIndex} questions={questions} percent={getPercentage()}/>
+                        <TrainNavigationButtons index={index} setIndex={setIndex} questions={questions}
+                                                percent={getPercentage()}/>
                         <ProgressBar currentPercent={getPercentage()}/>
-                        <QuestionListButtons questions={questions} currentQuestion={index} givenAnswers={givenAnswers} setIndex={setIndex}/>
+                        <QuestionListButtons questions={questions} currentQuestion={index} givenAnswers={givenAnswers}
+                                             setIndex={setIndex}/>
                     </div>
                     :
                     <i className="nes-kirby"></i>

@@ -13,12 +13,12 @@ export default function QuestionButton({index, question, currentQuestion, givenA
         let css = 'nes-btn'
         if (currentQuestion===index){
             css += ' is-primary'
-        } else if (question.indexRightAnswer.length===4){
+        } else if (question.rightAnswers.filter(answer => answer).length===4){
             if (givenAnswers.givenAnswers.includes(true)){
                 css += ' is-success'
             }
         } else {
-            const rightAnswers = question.indexRightAnswer.length
+            const rightAnswers = question.rightAnswers.filter(answer => answer).length
             const currentClicked = givenAnswers.givenAnswers.filter(answer => answer)
             if (currentClicked.length===rightAnswers){
                 css += ' is-success'
