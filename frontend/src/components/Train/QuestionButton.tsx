@@ -9,22 +9,21 @@ interface QuestionButtonProps {
 export default function QuestionButton({index, question, currentQuestion, givenAnswers}:QuestionButtonProps){
 
     const colorChecker = () =>{
+        let css = 'nes-btn'
         if (currentQuestion===index){
-            return 'nes-btn is-primary'
-        }
-        if (question.indexRightAnswer.length===4){
+            css += ' is-primary'
+        } else if (question.indexRightAnswer.length===4){
             if (givenAnswers.givenAnswers.includes(true)){
-                return 'nes-btn is-success'
+                css += ' is-success'
             }
-            return 'nes-btn'
         } else {
             const rightAnswers = question.indexRightAnswer.length
             const currentClicked = givenAnswers.givenAnswers.filter(answer => answer)
             if (currentClicked.length===rightAnswers){
-                return 'nes-btn is-success'
+                css += ' is-success'
             }
-            return 'nes-btn'
         }
+        return css
     }
 
     return(

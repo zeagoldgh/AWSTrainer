@@ -1,4 +1,5 @@
 import ChoiceButton from "./ChoiceButton";
+import './ChoiceArea.css'
 
 interface SingleChoiceProps{
     answers : string[]
@@ -8,7 +9,7 @@ interface SingleChoiceProps{
 
 export default function ChoiceArea({answers,givenAnswers,handleAnswer}:SingleChoiceProps){
     return(
-        <div>
+        <div className={'flexChoice'}>
             {
                 answers.map((answer,i)=>{
                     return <ChoiceButton key={i+(givenAnswers[i] ? 'a' : 'b')} answer={answer} clicked={givenAnswers[i]} handleClick={()=>handleAnswer(i)}/>

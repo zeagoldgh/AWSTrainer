@@ -6,6 +6,7 @@ import {useAuth} from "../../auth/AuthProvider";
 import QuestionBox from "./QuestionBox";
 import ChoiceArea from "./ChoiceArea";
 import QuestionListButtons from "./QuestionListButtons";
+import TrainNavigationButtons from "./TrainNavigationButtons";
 
 
 interface TrainContentProps{
@@ -61,9 +62,7 @@ export default function TrainContent({fetch}:TrainContentProps){
                     <div>
                         <QuestionBox text={questions[index].question} toChoose={questions[index].answers.length===5 ? questions[index].indexRightAnswer.length : 1}/>
                         <ChoiceArea answers={questions[index].answers} givenAnswers={givenAnswers[index].givenAnswers} handleAnswer={handleAnswer}/>
-                        {index!==0 && <button onClick={(()=>setIndex(index-1))}>prev</button>}
-                        <button>Absenden</button>
-                        {index!==questions.length-1 && <button onClick={(()=>setIndex(index+1))}>next</button>}
+                        <TrainNavigationButtons index={index} setIndex={setIndex} questions={questions}/>
                         <QuestionListButtons questions={questions} currentQuestion={index} givenAnswers={givenAnswers}/>
                     </div>
                     :

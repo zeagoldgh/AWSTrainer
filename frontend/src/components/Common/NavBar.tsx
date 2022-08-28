@@ -8,7 +8,7 @@ interface HeadingProps{
     location : string
 }
 
-export default function Heading({location}:HeadingProps){
+export default function NavBar({location}:HeadingProps){
 
     const nav = useNavigate()
 

@@ -15,6 +15,7 @@ export default function QuestionBox({text,toChoose}: QuestionBoxProps) {
                             <h3 className={'betterRead'}>{text}</h3>
                             {toChoose>1 ? <p>{`Choose ${toChoose} answers`}</p> : <p>Single Choice</p>}
                         </div>
+                        <br/>
                         <i className="nes-ash"></i>
 
                     </section>
