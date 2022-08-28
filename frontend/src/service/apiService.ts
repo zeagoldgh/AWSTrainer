@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {LoginResponseBody, NewQuestion, QuestionEntity} from "./models";
+import {AnswersGiven, LoginResponseBody, NewQuestion, QuestionEntity, ValidatedAnswer} from "./models";
 
 //GLOBALS
 
@@ -28,6 +28,16 @@ export const postNewQuestion = (question:NewQuestion,token:string)=>{
 export const getRandomQuestions = (token : string) =>{
     return axios.get(`/api/question/random/${NUMBER_OF_RANDOM}`,headers(token))
         .then((response : AxiosResponse<QuestionEntity[]>)=> response.data)
+}
+
+export const postAnswersToValidateQuickTrain = (answers:AnswersGiven[],token :string) => {
+    return axios.post(`/api/answer`,answers,headers(token))
+        .then((response : AxiosResponse<ValidatedAnswer>) => response.data)
+}
+
+export const getResultsById = (id:string,token:string)=>{
+    return axios.get(`/api/answer/${id}`,headers(token))
+        .then((response : AxiosResponse<ValidatedAnswer>) => response.data)
 }
 
 //Hilfsmethoden

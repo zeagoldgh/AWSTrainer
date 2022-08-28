@@ -43,3 +43,17 @@ export interface AnswersGiven {
     questionId : string
     givenAnswers : boolean[]
 }
+
+export interface ValidatedAnswer {
+    id : string
+    isExam : boolean
+    validatedAnswers : CheckedAnswer[]
+}
+
+export interface CheckedAnswer{
+    possibleAnswers : string[]
+    givenAnswers : boolean[]
+    correctlyAnswers : boolean[]
+    category : string
+    certType : string
+}

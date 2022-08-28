@@ -1,5 +1,5 @@
 import TrainContent from "../components/Train/TrainContent";
-import {getRandomQuestions} from "../service/apiService";
+import {getRandomQuestions, postAnswersToValidateQuickTrain} from "../service/apiService";
 
 export default function QuickTrainPage() {
 
@@ -7,7 +7,7 @@ export default function QuickTrainPage() {
 
     return (
         <div>
-            <TrainContent fetch={getRandomQuestions}/>
+            <TrainContent fetch={getRandomQuestions} validate={postAnswersToValidateQuickTrain}/>
         </div>
     )
 }
