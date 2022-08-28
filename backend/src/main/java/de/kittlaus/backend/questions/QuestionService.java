@@ -38,4 +38,8 @@ public class QuestionService {
         }
         return random;
     }
+
+    public List<Question> findAllById(List<String> questionsId) {
+        return (List<Question>) questionRepo.findAllById(questionsId);
+    }
 }

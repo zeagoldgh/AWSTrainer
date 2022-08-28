@@ -1,4 +1,4 @@
-package de.kittlaus.backend.models.questions;
+package de.kittlaus.backend.models.answers;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,15 +12,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Question {
+public class ValidatedAnswer {
 
     @Id
     private String id;
 
-    private String question;
-    private List<String> answers;
-    private List<Boolean> rightAnswers;
-    private Category category;
-    private CertType certType;
+    private String userId;
+    private boolean isExam;
+    List<CheckedAnswer> validatedAnswers;
 
 }
