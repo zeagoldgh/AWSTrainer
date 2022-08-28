@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface QuestionRepo extends MongoRepository<Question,String> {
+public interface QuestionRepo extends MongoRepository<Question,String>, ExtendQuestionRepo {
 
     Optional<Question> findByQuestion(String question);
 

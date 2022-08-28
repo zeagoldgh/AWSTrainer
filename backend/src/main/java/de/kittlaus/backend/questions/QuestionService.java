@@ -23,21 +23,10 @@ public class QuestionService {
     }
 
     public List<Question> getRandomQuestions(int howMany) {
-        List<Question> all = questionRepo.findAll();
-        return randomizer(all,howMany);
+        return questionRepo.findRandomTasks(howMany);
 
     }
 
-    private List<Question> randomizer(List<Question> allQuestions, int howMany){
-        List<Question> random = new ArrayList<>();
-        while (random.size()<howMany){
-            Question question = allQuestions.get((int) (Math.random() * allQuestions.size()));
-            if (!random.contains(question)){
-                random.add(question);
-            }
-        }
-        return random;
-    }
 
     public List<Question> findAllById(List<String> questionsId) {
         return (List<Question>) questionRepo.findAllById(questionsId);
