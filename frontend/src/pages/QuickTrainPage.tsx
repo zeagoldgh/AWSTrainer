@@ -7,6 +7,7 @@ import {useAuth} from "../auth/AuthProvider";
 import Heading from "../components/Common/Heading";
 import QuestionBox from "../components/Train/QuestionBox";
 import ChoiceArea from "../components/Train/ChoiceArea";
+import QuestionListButtons from "../components/Train/QuestionListButtons";
 
 export default function QuickTrainPage(){
 
@@ -61,13 +62,7 @@ export default function QuickTrainPage(){
                         {index!==0 && <button onClick={(()=>setIndex(index-1))}>prev</button>}
                         <button>Absenden</button>
                         {index!==questions.length-1 && <button onClick={(()=>setIndex(index+1))}>next</button>}
-                        <div>
-                            {
-                                questions.map((q,i)=>{
-                                    return  <button className={`nes-btn ${index===i ? 'is-primary' : givenAnswers[i].givenAnswers.includes(true) ? 'is-success' : ''}`} key={i}>{i+1}</button>
-                                })
-                            }
-                        </div>
+                        <QuestionListButtons questions={questions} currentQuestion={index} givenAnswers={givenAnswers}/>
                     </div>
                     :
                     <i className="nes-kirby"></i>
