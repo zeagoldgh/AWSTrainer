@@ -7,7 +7,7 @@ short test.
 - AWS Cloud Practitioner CLF-C01
 
 
-## WIP
+## Planned
 - AWS Certified Developer Certification DVA-C01
 - AWS Certified Solutions Architect Associate Certification SAA-C03(when the new exam is up)
 
