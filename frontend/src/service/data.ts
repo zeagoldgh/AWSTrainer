@@ -1,3 +1,4 @@
+
 export const buttons = [
     {
         color : "primary",
@@ -7,7 +8,7 @@ export const buttons = [
     {
         color : "success",
         text : "Quick Train",
-        destination : "/quick"
+        destination : "/quickTrain"
     },
     {
         color : "warning",
@@ -102,3 +103,4 @@ export const multiAnswerChoice = [
         name : "5",
     }
 ]
+

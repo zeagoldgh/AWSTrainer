@@ -1,0 +1,4 @@
+.flexNav {
+    display: flex;
+    justify-content: space-evenly;
+}

@@ -1,4 +1,4 @@
-import Heading from "../components/Common/Heading";
+import NavBar from "../components/Common/NavBar";
 import React from "react";
 import AddQuestion from "../components/CreateQuestion/AddQuestion";
 
@@ -6,7 +6,7 @@ import AddQuestion from "../components/CreateQuestion/AddQuestion";
 export default function CreateQuestion(){
     return(
         <div>
-            <Heading location={"add"}/>
+            <NavBar location={"add"}/>
             <AddQuestion/>
         </div>
     )
