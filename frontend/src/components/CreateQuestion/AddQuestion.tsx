@@ -62,26 +62,23 @@ export default function AddQuestion() {
     const saveQuestion = () => {
         let newQuestion : NewQuestion
         if (multi){
-            const correctAnswerd = [] as number[]
-            correctMulti.forEach((bool,index)=>{
-                if (bool){
-                    correctAnswerd.push(index)
-                }
-            })
+
             newQuestion = {
                 question : question,
                 answers : multiAnswers,
                 category : category,
                 certType : exam,
-                indexRightAnswer : correctAnswerd
+                rightAnswers : correctMulti
             }
         } else {
+            const single = [false, false, false, false]
+            single[parseInt(correctSingle)] = true
             newQuestion = {
                 question : question,
                 answers : singleAnswers,
                 category : category,
                 certType : exam,
-                indexRightAnswer : [parseInt(correctSingle)]
+                rightAnswers : single
             }
         }
         postNewQuestion(newQuestion,auth.token)

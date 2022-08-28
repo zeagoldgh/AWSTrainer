@@ -17,7 +17,7 @@ public class Question {
 
     private String question;
     private String[] answers;
-    private int[] indexRightAnswer;
+    private boolean[] rightAnswers;
     private Category category;
     private CertType certType;
 

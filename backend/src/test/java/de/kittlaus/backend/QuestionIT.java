@@ -48,7 +48,7 @@ public class QuestionIT {
         Question question = Question.builder()
                 .question("Was ist aws?")
                 .answers(new String[]{"Bla","bla","bla","Cloudgedöns","bla"})
-                .indexRightAnswer(new int[]{3})
+                .rightAnswers(new boolean[]{true,false,false,false,true})
                 .category(Category.CLOUD)
                 .certType(CertType.CLF_C01)
                 .build();
@@ -67,7 +67,7 @@ public class QuestionIT {
         Question question = Question.builder()
                 .question("Was ist aws?")
                 .answers(new String[]{"Bla","bla","bla","Cloudgedöns","bla"})
-                .indexRightAnswer(new int[]{3})
+                .rightAnswers(new boolean[]{true,false,false,false,true})
                 .category(Category.CLOUD)
                 .certType(CertType.CLF_C01)
                 .build();
@@ -85,7 +85,7 @@ public class QuestionIT {
         Question question = Question.builder()
                 .question("Was ist aws?")
                 .answers(new String[]{"Bla","bla","bla","Cloudgedöns","bla"})
-                .indexRightAnswer(new int[]{3})
+                .rightAnswers(new boolean[]{true,false,false,false,true})
                 .category(Category.CLOUD)
                 .certType(CertType.CLF_C01)
                 .build();
@@ -138,7 +138,7 @@ public class QuestionIT {
             question = Question.builder()
                     .question("Was ist aws?"+counter)
                     .answers(new String[]{"Bla","bla","bla","Cloudgedöns","bla"})
-                    .indexRightAnswer(new int[]{3})
+                    .rightAnswers(new boolean[]{true,false,false,false,true})
                     .category(generateCategory(counter))
                     .certType(CertType.CLF_C01)
                     .build();
