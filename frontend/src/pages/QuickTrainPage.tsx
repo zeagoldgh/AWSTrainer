@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {useAuth} from "../auth/AuthProvider";
 import Heading from "../components/Common/Heading";
 import QuestionBox from "../components/Train/QuestionBox";
-import AnswerField from "../components/Train/AnswerField";
+import ChoiceArea from "../components/Train/ChoiceArea";
 
 export default function QuickTrainPage(){
 
@@ -56,8 +56,8 @@ export default function QuickTrainPage(){
             {
                 questions && givenAnswers.length>3?
                     <div>
-                        <QuestionBox text={questions[index].question}/>
-                        <AnswerField answers={questions[index].answers} givenAnswers={givenAnswers[index].givenAnswers} handleAnswer={handleAnswer}/>
+                        <QuestionBox text={questions[index].question} toChoose={questions[index].answers.length===5 ? questions[index].indexRightAnswer.length : 1}/>
+                        <ChoiceArea answers={questions[index].answers} givenAnswers={givenAnswers[index].givenAnswers} handleAnswer={handleAnswer}/>
                         {index!==0 && <button onClick={(()=>setIndex(index-1))}>prev</button>}
                         <button>Absenden</button>
                         {index!==questions.length-1 && <button onClick={(()=>setIndex(index+1))}>next</button>}
