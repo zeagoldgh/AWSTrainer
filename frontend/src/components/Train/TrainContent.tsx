@@ -86,7 +86,7 @@ export default function TrainContent({fetch}: TrainContentProps) {
                                     handleAnswer={handleAnswer}/>
                         <TrainNavigationButtons index={index} setIndex={setIndex} questions={questions} percent={getPercentage()}/>
                         <ProgressBar currentPercent={getPercentage()}/>
-                        <QuestionListButtons questions={questions} currentQuestion={index} givenAnswers={givenAnswers}/>
+                        <QuestionListButtons questions={questions} currentQuestion={index} givenAnswers={givenAnswers} setIndex={setIndex}/>
                     </div>
                     :
                     <i className="nes-kirby"></i>

@@ -5,8 +5,9 @@ interface QuestionButtonProps {
     question : QuestionEntity
     currentQuestion : number
     givenAnswers : AnswersGiven
+    setIndex : (index : number) => void
 }
-export default function QuestionButton({index, question, currentQuestion, givenAnswers}:QuestionButtonProps){
+export default function QuestionButton({index, question, currentQuestion, givenAnswers,setIndex}:QuestionButtonProps){
 
     const colorChecker = () =>{
         let css = 'nes-btn'
@@ -27,6 +28,6 @@ export default function QuestionButton({index, question, currentQuestion, givenA
     }
 
     return(
-        <button className={colorChecker()}>{index+1}</button>
+        <button className={colorChecker()} onClick={()=> setIndex(index)}>{index+1}</button>
     )
 }
