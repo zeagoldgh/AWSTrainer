@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,8 +18,8 @@ public class Question {
     private String id;
 
     private String question;
-    private String[] answers;
-    private boolean[] rightAnswers;
+    private List<String> answers;
+    private List<Boolean> rightAnswers;
     private Category category;
     private CertType certType;
 
