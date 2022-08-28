@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {AnswersGiven, QuestionEntity} from "../../service/models";
+import {AnswersGiven, QuestionEntity, ValidatedAnswer} from "../../service/models";
 import {AxiosError} from "axios";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../auth/AuthProvider";
@@ -12,9 +12,10 @@ import ProgressBar from "./ProgressBar";
 
 interface TrainContentProps {
     fetch: (token: string) => Promise<QuestionEntity[]>
+    validate : (answers:AnswersGiven[],token :string) => Promise<ValidatedAnswer>
 }
 
-export default function TrainContent({fetch}: TrainContentProps) {
+export default function TrainContent({fetch,validate}: TrainContentProps) {
 
     const [questions, setQuestions] = useState<QuestionEntity[]>()
     const [index, setIndex] = useState(0)
@@ -76,6 +77,18 @@ export default function TrainContent({fetch}: TrainContentProps) {
         return 0
     }
 
+    const handOverAnswers = () => {
+        validate(givenAnswers,token)
+            .then(data => {
+                if (data.isExam){
+                    nav(`/examResult/${data.id}`)
+                } else {
+                    nav(`/results/${data.id}`)
+                }
+            })
+            .catch((err : AxiosError) => console.log(err.message))
+    }
+
     return (
         <div>
             {
@@ -86,7 +99,7 @@ export default function TrainContent({fetch}: TrainContentProps) {
                         <ChoiceArea answers={questions[index].answers} givenAnswers={givenAnswers[index].givenAnswers}
                                     handleAnswer={handleAnswer}/>
                         <TrainNavigationButtons index={index} setIndex={setIndex} questions={questions}
-                                                percent={getPercentage()}/>
+                                                percent={getPercentage()} submit={handOverAnswers}/>
                         <ProgressBar currentPercent={getPercentage()}/>
                         <QuestionListButtons questions={questions} currentQuestion={index} givenAnswers={givenAnswers}
                                              setIndex={setIndex}/>

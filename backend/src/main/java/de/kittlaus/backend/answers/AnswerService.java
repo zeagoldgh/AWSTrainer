@@ -9,9 +9,8 @@ import de.kittlaus.backend.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,8 +23,12 @@ public class AnswerService {
 
     public Optional<ValidatedAnswer> checkAndSaveAnswers(List<GivenAnswer> given, String username) {
         String userId = userService.findByUsername(username).orElseThrow().getId();
-        List<String> questionsId = given.stream().map(answer -> answer.getQuestionId()).toList();
-        List<Question> questions = questionService.findAllById(questionsId);
+        List<String> questionsId = given.stream().map(GivenAnswer::getQuestionId).toList();
+        List<Question> questionsUnorderd = questionService.findAllById(questionsId);
+        List<Question> questions = new ArrayList<>(List.copyOf(questionsUnorderd));
+        for(Question question : questionsUnorderd){
+            questions.set(questionsId.indexOf(question.getId()),question);
+        }
         List<CheckedAnswer> checkedAnswers = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
             checkedAnswers.add(validateAnswer(given.get(i),questions.get(i)));
@@ -42,5 +45,9 @@ public class AnswerService {
         }
         checked.setCorrectlyAnswers(answeredCorrect);
         return checked;
+    }
+
+    public Optional<ValidatedAnswer> findById(String id) {
+        return answerRepo.findById(id);
     }
 }

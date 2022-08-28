@@ -6,6 +6,7 @@ import AuthProvider from "./auth/AuthProvider";
 import HomePage from "./pages/HomePage";
 import CreateQuestion from "./pages/CreateQuestion";
 import QuickTrainPage from "./pages/QuickTrainPage";
+import ResultsPage from "./pages/ResultsPage";
 
 export default function App() {
     return (
@@ -17,6 +18,7 @@ export default function App() {
                     <Route path={'/user'} element={<LoginPage/>}/>
                     <Route path={'/add'} element={<CreateQuestion/>}/>
                     <Route path={'/quickTrain'} element={<QuickTrainPage/>}/>
+                    <Route path={'/results/:id'} element={<ResultsPage/>}/>
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
