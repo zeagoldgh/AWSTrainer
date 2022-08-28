@@ -23,7 +23,7 @@ public class AnswerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ValidatedAnswer> getAnswerById(@RequestParam String id){
+    public ResponseEntity<ValidatedAnswer> getAnswerById(@PathVariable String id){
         return ResponseEntity.of(answerService.findById(id));
     }
 

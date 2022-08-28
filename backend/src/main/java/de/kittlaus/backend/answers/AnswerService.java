@@ -26,22 +26,27 @@ public class AnswerService {
         List<String> questionsId = given.stream().map(GivenAnswer::getQuestionId).toList();
         List<Question> questionsUnorderd = questionService.findAllById(questionsId);
         List<Question> questions = new ArrayList<>(List.copyOf(questionsUnorderd));
-        for(Question question : questionsUnorderd){
-            questions.set(questionsId.indexOf(question.getId()),question);
+        for (Question question : questionsUnorderd) {
+            questions.set(questionsId.indexOf(question.getId()), question);
         }
         List<CheckedAnswer> checkedAnswers = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
-            checkedAnswers.add(validateAnswer(given.get(i),questions.get(i)));
+            checkedAnswers.add(validateAnswer(given.get(i), questions.get(i)));
         }
         ValidatedAnswer validatedAnswer = ValidatedAnswer.builder().validatedAnswers(checkedAnswers).userId(userId).isExam(false).build();
         return Optional.of(answerRepo.save(validatedAnswer));
     }
 
-    private CheckedAnswer validateAnswer(GivenAnswer answer, Question question){
-        CheckedAnswer checked = CheckedAnswer.builder().givenAnswers(answer.getGivenAnswers()).possibleAnswers(question.getAnswers()).build();
+    private CheckedAnswer validateAnswer(GivenAnswer answer, Question question) {
+        CheckedAnswer checked = CheckedAnswer.builder()
+                .givenAnswers(answer.getGivenAnswers())
+                .possibleAnswers(question.getAnswers())
+                .category(question.getCategory())
+                .certType(question.getCertType())
+                .build();
         List<Boolean> answeredCorrect = new ArrayList<>();
         for (int i = 0; i < question.getRightAnswers().size(); i++) {
-            answeredCorrect.add(i,answer.getGivenAnswers().get(i).equals(question.getRightAnswers().get(i)));
+            answeredCorrect.add(i, answer.getGivenAnswers().get(i).equals(question.getRightAnswers().get(i)));
         }
         checked.setCorrectlyAnswers(answeredCorrect);
         return checked;

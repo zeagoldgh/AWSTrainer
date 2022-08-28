@@ -16,7 +16,10 @@ export default function ResultsPage(){
     useEffect(()=>{
         if(id&&token){
             getResultsById(id,token)
-                .then(data => setResults(data))
+                .then(data => {
+                    setResults(data)
+                    console.log(data)
+                })
                 .catch((err : AxiosError)=> console.log(err.message))
         }
     },[id, token])
@@ -28,7 +31,7 @@ export default function ResultsPage(){
                     <div>
                         {
                             results.validatedAnswers.map((e,i) => {
-                                return <p>{!e.correctlyAnswers.includes(false)}</p>
+                                return <p key={i}>{e.correctlyAnswers.includes(false)?'Leider falsch':'Richtig'}</p>
                             })
                         }
                     </div>
