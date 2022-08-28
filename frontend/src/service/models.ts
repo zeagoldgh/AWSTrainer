@@ -38,3 +38,8 @@ export interface QuestionEntity {
     category : string,
     certType : string
 }
+
+export interface AnswersGiven {
+    questionId : string
+    givenAnswers : boolean[]
+}
