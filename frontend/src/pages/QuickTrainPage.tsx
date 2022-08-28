@@ -5,6 +5,7 @@ import {AxiosError} from "axios";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../auth/AuthProvider";
 import Heading from "../components/Common/Heading";
+import QuestionBox from "../components/Train/QuestionBox";
 
 export default function QuickTrainPage(){
 
@@ -35,7 +36,7 @@ export default function QuickTrainPage(){
             {
                 questions?
                     <div>
-                        <h1>{questions[index].question}</h1>
+                        <QuestionBox text={questions[index].question}/>
                         <ul>
                             <li>{questions[index].answers[0]}</li>
                             <li>{questions[index].answers[1]}</li>
