@@ -1,5 +1,6 @@
 package de.kittlaus.backend.questions;
 
+import de.kittlaus.backend.models.questions.Category;
 import de.kittlaus.backend.models.questions.Question;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,11 @@ public class QuestionController {
     @GetMapping("/random/{howMany}")
     public List<Question> getRandomQuestions(@PathVariable int howMany){
         return questionService.getRandomQuestions(howMany);
+    }
+
+    @GetMapping
+    public List<Question> getRandom(){
+        return questionService.random(5, Category.CLOUD);
     }
 
 }

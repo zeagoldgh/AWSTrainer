@@ -1,6 +1,7 @@
 package de.kittlaus.backend.questions;
 
 
+import de.kittlaus.backend.models.questions.Category;
 import de.kittlaus.backend.models.questions.Question;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,9 @@ public class QuestionService {
 
     public List<Question> findAllById(List<String> questionsId) {
         return (List<Question>) questionRepo.findAllById(questionsId);
+    }
+
+    public List<Question> random(int i, Category category) {
+        return questionRepo.findRandomTasksInCategory(i,category);
     }
 }
