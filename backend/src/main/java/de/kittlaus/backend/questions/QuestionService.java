@@ -46,4 +46,8 @@ public class QuestionService {
         exam.addAll(questionRepo.findRandomTasksInCategoryInExam(10,Category.BILLING,certType));
         return exam;
     }
+
+    public List<Question> getRandomQuestionsByCategory(int howMany, Category category) {
+        return questionRepo.findRandomTasksInCategory(howMany,category);
+    }
 }

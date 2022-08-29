@@ -36,6 +36,11 @@ public class QuestionController {
         return questionService.getRandomQuestions(howMany);
     }
 
+    @GetMapping("/category/{category}/{howMany}")
+    public List<Question> getRandomQuestionsByCategory(@PathVariable int howMany, @PathVariable Category category){
+        return questionService.getRandomQuestionsByCategory(howMany,category);
+    }
+
     @GetMapping("/exam/{certType}")
     public List<Question> getQuestionsForPracticeExam(@PathVariable CertType certType){
         return questionService.generateExam(certType);
