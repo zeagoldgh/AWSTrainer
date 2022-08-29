@@ -52,6 +52,11 @@ export const postAnswersToValidateQuickTrain = (answers:AnswersGiven[],token :st
         .then((response : AxiosResponse<AnswersValidatedDTO>) => response.data)
 }
 
+export const postAnswersToValidateExam = (answers:AnswersGiven[],token :string) => {
+    return axios.post(`/api/answer/exam`,answers,headers(token))
+        .then((response : AxiosResponse<AnswersValidatedDTO>) => response.data)
+}
+
 export const getResultsById = (id:string,token:string)=>{
     return axios.get(`/api/answer/${id}`,headers(token))
         .then((response : AxiosResponse<ValidatedAnswers>) => response.data)

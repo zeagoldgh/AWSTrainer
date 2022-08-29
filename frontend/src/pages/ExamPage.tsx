@@ -1,10 +1,10 @@
 import TrainContent from "../components/Train/TrainContent";
-import {getPracticeExam, postAnswersToValidateQuickTrain} from "../service/apiService";
+import {getPracticeExam, postAnswersToValidateExam} from "../service/apiService";
 
 export default function ExamPage(){
     return(
         <div>
-            <TrainContent fetch={getPracticeExam} validate={postAnswersToValidateQuickTrain} info={'CLF_C01'}/>
+            <TrainContent fetch={getPracticeExam} validate={postAnswersToValidateExam} info={'CLF_C01'}/>
         </div>
     )
 
