@@ -22,7 +22,7 @@ public class AnswerController {
 
     @PostMapping
     public ResponseEntity<AnswersValidatedDTO> checkAnswers(@RequestBody List<GivenAnswer> given, Principal principal){
-        return ResponseEntity.status(HttpStatus.OK).body(answerService.checkAndSaveAnswers(given, principal.getName()));
+        return ResponseEntity.status(HttpStatus.OK).body(answerService.checkAndSaveAnswers(given, principal.getName(),false));
     }
 
     @GetMapping("/{id}")

@@ -47,7 +47,7 @@ export default function TrainContent({fetch,validate,info}: TrainContentProps) {
                     console.log(err.message)
                 }
             })
-    }, [nav, token, fetch])
+    }, [nav, token, fetch,info])
 
     const handleAnswer = (whichAnswer: number) => {
         const currentAnswers = [...givenAnswers]

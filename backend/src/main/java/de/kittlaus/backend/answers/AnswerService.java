@@ -20,7 +20,7 @@ public class AnswerService {
     private final UserService userService;
 
 
-    public AnswersValidatedDTO checkAndSaveAnswers(List<GivenAnswer> given, String username) {
+    public AnswersValidatedDTO checkAndSaveAnswers(List<GivenAnswer> given, String username,boolean isExam) {
         String userId = userService.findByUsername(username).orElseThrow().getId();
         List<String> questionsId = given.stream().map(GivenAnswer::getQuestionId).toList();
         List<Question> questionsUnorderd = questionService.findAllById(questionsId);
@@ -29,7 +29,7 @@ public class AnswerService {
         for (int i = 0; i < questions.size(); i++) {
             checkedAnswers.add(validateAnswer(given.get(i), questions.get(i)));
         }
-        ValidatedAnswer validatedAnswer = ValidatedAnswer.builder().validatedAnswers(checkedAnswers).userId(userId).isExam(false).build();
+        ValidatedAnswer validatedAnswer = ValidatedAnswer.builder().validatedAnswers(checkedAnswers).userId(userId).isExam(isExam).build();
         return new AnswersValidatedDTO(answerRepo.save(validatedAnswer).getId());
     }
 
