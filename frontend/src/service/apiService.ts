@@ -5,7 +5,7 @@ import {
     LoginResponseBody,
     NewQuestion,
     QuestionEntity,
-    ValidatedAnswer
+    ValidatedAnswers
 } from "./models";
 
 //GLOBALS
@@ -44,7 +44,7 @@ export const postAnswersToValidateQuickTrain = (answers:AnswersGiven[],token :st
 
 export const getResultsById = (id:string,token:string)=>{
     return axios.get(`/api/answer/${id}`,headers(token))
-        .then((response : AxiosResponse<ValidatedAnswer>) => response.data)
+        .then((response : AxiosResponse<ValidatedAnswers>) => response.data)
 }
 
 //Hilfsmethoden

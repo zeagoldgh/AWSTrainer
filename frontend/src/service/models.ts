@@ -44,7 +44,7 @@ export interface AnswersGiven {
     givenAnswers : boolean[]
 }
 
-export interface ValidatedAnswer {
+export interface ValidatedAnswers {
     isExam : boolean
     takenQuestions : CheckedAnswer[]
 }

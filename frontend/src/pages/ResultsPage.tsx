@@ -1,14 +1,15 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {ValidatedAnswer} from "../service/models";
+import {ValidatedAnswers} from "../service/models";
 import {getResultsById} from "../service/apiService";
 import {useAuth} from "../auth/AuthProvider";
 import {AxiosError} from "axios";
+import ResultCard from "../components/Results/ResultCard";
 
 
 export default function ResultsPage(){
 
-    const [results,setResults]=useState<ValidatedAnswer>()
+    const [results,setResults]=useState<ValidatedAnswers>()
 
     const {id} = useParams()
     const {token} = useAuth()
@@ -31,7 +32,7 @@ export default function ResultsPage(){
                     <div>
                         {
                             results.takenQuestions.map((e,i) => {
-                                return <p key={i}>{e.correctlyAnswers.includes(false)?'Leider falsch':'Richtig'}</p>
+                                return <ResultCard key={i} result={e} index={i}/>
                             })
                         }
                     </div>
