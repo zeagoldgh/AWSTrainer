@@ -28,6 +28,6 @@ export default function QuestionButton({index, question, currentQuestion, givenA
     }
 
     return(
-        <button className={colorChecker()} onClick={()=> setIndex(index)}>{index+1}</button>
+        <button className={colorChecker()} onClick={()=> setIndex(index)}>{index+1<10 ? `0${index+1}` : index+1}</button>
     )
 }

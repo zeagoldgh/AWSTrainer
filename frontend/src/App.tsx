@@ -7,6 +7,8 @@ import HomePage from "./pages/HomePage";
 import CreateQuestion from "./pages/CreateQuestion";
 import QuickTrainPage from "./pages/QuickTrainPage";
 import ResultsPage from "./pages/ResultsPage";
+import CategoryTrainPage from "./pages/CategoryTrainPage";
+import ExamPage from "./pages/ExamPage";
 
 export default function App() {
     return (
@@ -19,6 +21,8 @@ export default function App() {
                     <Route path={'/add'} element={<CreateQuestion/>}/>
                     <Route path={'/quickTrain'} element={<QuickTrainPage/>}/>
                     <Route path={'/result/:id'} element={<ResultsPage/>}/>
+                    <Route path={'/category/:category'} element={<CategoryTrainPage/>}/>
+                    <Route path={'/exam'} element={<ExamPage/>}/>
                 </Routes>
             </AuthProvider>
         </BrowserRouter>

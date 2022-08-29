@@ -37,6 +37,16 @@ export const getRandomQuestions = (token : string) =>{
         .then((response : AxiosResponse<QuestionEntity[]>)=> response.data)
 }
 
+export const getCategoryQuestions = (token : string,category ?: string) =>{
+    return axios.get(`/api/question/category/${category}/${NUMBER_OF_RANDOM}`,headers(token))
+        .then((response : AxiosResponse<QuestionEntity[]>)=> response.data)
+}
+
+export const getPracticeExam = (token : string,type ?: string) => {
+    return axios.get(`/api/question/exam/${type}`,headers(token))
+        .then((response : AxiosResponse<QuestionEntity[]>)=> response.data)
+}
+
 export const postAnswersToValidateQuickTrain = (answers:AnswersGiven[],token :string) => {
     return axios.post(`/api/answer`,answers,headers(token))
         .then((response : AxiosResponse<AnswersValidatedDTO>) => response.data)

@@ -1,6 +1,7 @@
-.flex{
+.flexButtons{
     margin-top: 0.5rem;
     display: flex;
     justify-content: center;
     gap: 0.5rem;
+    flex-wrap: wrap;
 }

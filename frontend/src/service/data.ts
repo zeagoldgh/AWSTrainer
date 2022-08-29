@@ -13,22 +13,22 @@ export const buttons = [
     {
         color : "warning",
         text : "Cloud Concepts",
-        destination : "/quick?category=cloud"
+        destination : "/category/CLOUD"
     },
     {
         color : "warning",
         text : "Security and Compliance",
-        destination : "/quick?category=security"
+        destination : "/category/SECURITY"
     },
     {
         color : "warning",
         text : "Billing & Pricing",
-        destination : "/quick?category=billing"
+        destination : "/category/BILLING"
     },
     {
         color : "warning",
         text : "Technology",
-        destination : "/quick?category=tech"
+        destination : "/category/TECHNOLOGY"
     },
     {
         color : "error",

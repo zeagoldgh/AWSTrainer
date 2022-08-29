@@ -109,6 +109,14 @@ public class QuestionIT {
         assertThat(Objects.requireNonNull(actualResponse1.getBody()).length).isEqualTo(5);
         assertThat(Objects.requireNonNull(actualResponse2.getBody()).length).isEqualTo(5);
         assertThat(actualResponse1.getBody()).isNotEqualTo(actualResponse2.getBody());
+
+        ResponseEntity<Question[]> actualResponse = restTemplate.exchange("/api/question/category/CLOUD/5", HttpMethod.GET, new HttpEntity<>(null,createHeaders(token.getToken())), Question[].class);
+        assertThat(actualResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Question[] body = actualResponse.getBody();
+        assert body != null;
+        for (Question q : body){
+            assertThat(q.getCategory()).isEqualTo(Category.CLOUD);
+        }
     }
 
 
