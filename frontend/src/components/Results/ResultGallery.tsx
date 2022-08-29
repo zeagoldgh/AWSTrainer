@@ -45,6 +45,18 @@ export default function ResultGallery({id}:ResultGalleryProps){
         return 0
     }
 
+    const percentCategory = (category : string) =>{
+        if (results){
+            const right = results.takenQuestions
+                .filter(e => e.question.category===category)
+                .filter(e => !e.correctlyAnswers.includes(false))
+                .length
+            const all = results.takenQuestions.filter(e => e.question.category===category).length
+            return right/all * 100
+        }
+        return 0
+    }
+
 
     return(
         <div>
@@ -76,7 +88,16 @@ export default function ResultGallery({id}:ResultGalleryProps){
                                 return <ResultCard key={e.question.question} result={e} index={i}/>
                             })
                         }
-                        <ResultSummary percentRight={percent()}/>
+                        {
+                            results.exam &&
+                            <div>
+                                <ResultSummary percentRight={percentCategory('CLOUD')} text={'Cloud Concepts'} conclusion={false}/>
+                                <ResultSummary percentRight={percentCategory('SECURITY')} text={'Security and Compliance'} conclusion={false}/>
+                                <ResultSummary percentRight={percentCategory('BILLING')} text={'Billing & Pricing'} conclusion={false}/>
+                                <ResultSummary percentRight={percentCategory('TECHNOLOGY')} text={'Technology'} conclusion={false}/>
+                            </div>
+                        }
+                        <ResultSummary percentRight={percent()} text={'Gesamt'} conclusion={true}/>
                     </div>
                     :
                     <i className="nes-kirby"></i>

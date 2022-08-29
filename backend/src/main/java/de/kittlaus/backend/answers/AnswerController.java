@@ -25,6 +25,11 @@ public class AnswerController {
         return ResponseEntity.status(HttpStatus.OK).body(answerService.checkAndSaveAnswers(given, principal.getName(),false));
     }
 
+    @PostMapping("/exam")
+    public ResponseEntity<AnswersValidatedDTO> checkExam(@RequestBody List<GivenAnswer> given, Principal principal){
+        return ResponseEntity.status(HttpStatus.OK).body(answerService.checkAndSaveAnswers(given, principal.getName(),true));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<AnswersDTO> getAnswerById(@PathVariable String id){
         return ResponseEntity.of(answerService.findById(id));

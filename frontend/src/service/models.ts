@@ -45,7 +45,7 @@ export interface AnswersGiven {
 }
 
 export interface ValidatedAnswers {
-    isExam : boolean
+    exam : boolean
     takenQuestions : CheckedAnswer[]
 }
 
