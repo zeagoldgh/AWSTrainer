@@ -18,7 +18,7 @@ public class ExtendQuestionRepoImpl implements ExtendQuestionRepo {
     private final MongoTemplate mongoTemplate;
 
     @Override
-    public List<Question> findRandomTasks(int count) {
+    public List<Question> findRandomQuestions(int count) {
         var aggregation = Aggregation.newAggregation(
                 Question.class,
                 aggregationOperationContext -> aggregationOperationContext.getMappedObject(org.bson.Document.parse("{ $sample: { size: " + count + " } }"))
@@ -28,10 +28,10 @@ public class ExtendQuestionRepoImpl implements ExtendQuestionRepo {
     }
 
     @Override
-    public List<Question> findRandomTasksInCategory(int count, Category category) {
+    public List<Question> findRandomQuestionsInCategory(int count, Category category) {
         var aggregation = Aggregation.newAggregation(
                 Question.class,
-                Aggregation.match(Criteria.where("{ category : "+category+" }")),
+                Aggregation.match(Criteria.where("category").is(category)),
                 Aggregation.sample(count)
         );
         var aggregationResult = mongoTemplate.aggregate(aggregation, Question.class);
@@ -39,11 +39,11 @@ public class ExtendQuestionRepoImpl implements ExtendQuestionRepo {
     }
 
     @Override
-    public List<Question> findRandomTasksInCategoryInExam(int count, Category category, CertType certType) {
+    public List<Question> findRandomQuestionsInCategoryInExam(int count, Category category, CertType certType) {
         var aggregation = Aggregation.newAggregation(
                 Question.class,
-                Aggregation.match(Criteria.where("{ category : "+category+" }")),
-                Aggregation.match(Criteria.where("{ certType : "+certType+" }")),
+                Aggregation.match(Criteria.where("category").is(category)),
+                Aggregation.match(Criteria.where("certType").is(certType)),
                 Aggregation.sample(count)
         );
         var aggregationResult = mongoTemplate.aggregate(aggregation, Question.class);

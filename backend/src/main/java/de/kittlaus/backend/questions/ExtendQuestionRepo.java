@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface ExtendQuestionRepo {
 
-    List<Question> findRandomTasks(int count);
+    List<Question> findRandomQuestions(int count);
 
-    List<Question> findRandomTasksInCategory(int count, Category category);
+    List<Question> findRandomQuestionsInCategory(int count, Category category);
 
-    List<Question> findRandomTasksInCategoryInExam(int count, Category category, CertType certType);
+    List<Question> findRandomQuestionsInCategoryInExam(int count, Category category, CertType certType);
 
 }

@@ -11,11 +11,12 @@ import ProgressBar from "./ProgressBar";
 
 
 interface TrainContentProps {
-    fetch: (token: string) => Promise<QuestionEntity[]>
+    fetch: (token: string ,info ?: string) => Promise<QuestionEntity[]>
     validate : (answers:AnswersGiven[],token :string) => Promise<AnswersValidatedDTO>
+    info ?: string
 }
 
-export default function TrainContent({fetch,validate}: TrainContentProps) {
+export default function TrainContent({fetch,validate,info}: TrainContentProps) {
 
     const [questions, setQuestions] = useState<QuestionEntity[]>()
     const [index, setIndex] = useState(0)
@@ -26,7 +27,7 @@ export default function TrainContent({fetch,validate}: TrainContentProps) {
 
     useEffect(() => {
         const givenAnswersInitArr = [] as AnswersGiven[]
-        fetch(token)
+        fetch(token,info)
             .then(data => {
                 setQuestions(data)
                 data.map(((question) => {

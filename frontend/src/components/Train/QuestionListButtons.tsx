@@ -16,7 +16,7 @@ export default function QuestionListButtons({
                                                 setIndex
                                             }: QuestionListButtonsProps) {
     return (
-        <div className={'flex'}>
+        <div className={'flexButtons'}>
             {
                 questions.map((q, i) => {
                     return <QuestionButton key={i} index={i} question={q} currentQuestion={currentQuestion}

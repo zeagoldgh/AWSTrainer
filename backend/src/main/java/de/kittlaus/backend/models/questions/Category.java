@@ -21,7 +21,7 @@ public enum Category {
     }
 
     @JsonCreator
-    public static Category getDepartmentFromCode(String value) {
+    public static Category getCategoryFromCategory(String value) {
         for (Category dep : Category.values()) {
             if (dep.getCategory().equals(value)) {
                 return dep;
