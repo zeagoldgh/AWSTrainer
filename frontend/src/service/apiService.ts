@@ -1,5 +1,12 @@
 import axios, {AxiosResponse} from "axios";
-import {AnswersGiven, LoginResponseBody, NewQuestion, QuestionEntity, ValidatedAnswer} from "./models";
+import {
+    AnswersGiven,
+    AnswersValidatedDTO,
+    LoginResponseBody,
+    NewQuestion,
+    QuestionEntity,
+    ValidatedAnswer
+} from "./models";
 
 //GLOBALS
 
@@ -32,7 +39,7 @@ export const getRandomQuestions = (token : string) =>{
 
 export const postAnswersToValidateQuickTrain = (answers:AnswersGiven[],token :string) => {
     return axios.post(`/api/answer`,answers,headers(token))
-        .then((response : AxiosResponse<ValidatedAnswer>) => response.data)
+        .then((response : AxiosResponse<AnswersValidatedDTO>) => response.data)
 }
 
 export const getResultsById = (id:string,token:string)=>{

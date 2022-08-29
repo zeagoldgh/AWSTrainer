@@ -1,6 +1,7 @@
 package de.kittlaus.backend;
 
 import de.kittlaus.backend.answers.AnswerRepo;
+import de.kittlaus.backend.models.answers.AnswersValidatedDTO;
 import de.kittlaus.backend.models.answers.GivenAnswer;
 import de.kittlaus.backend.models.answers.ValidatedAnswer;
 import de.kittlaus.backend.models.questions.Question;
@@ -60,16 +61,12 @@ public class AnswerIT {
         GivenAnswer a5 = GivenAnswer.builder().givenAnswers(questions[4].getRightAnswers()).questionId(questions[4].getId()).build();
         List<GivenAnswer> givenAnswers = List.of(a1,a2,a3,a4,a5);
         //WHEN
-        ResponseEntity<ValidatedAnswer> actualResponse = restTemplate.exchange("/api/answer", HttpMethod.POST, new HttpEntity<>(givenAnswers, createHeaders(token.getToken())), ValidatedAnswer.class);
+        ResponseEntity<AnswersValidatedDTO> actualResponse = restTemplate.exchange("/api/answer", HttpMethod.POST, new HttpEntity<>(givenAnswers, createHeaders(token.getToken())), AnswersValidatedDTO.class);
         //THEN
         assertThat(actualResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-        ValidatedAnswer actual = actualResponse.getBody();
+        AnswersValidatedDTO actual = actualResponse.getBody();
         assert actual != null;
-        assertThat(actual.getValidatedAnswers().size()).isEqualTo(5);
-        assertThat(actual.getValidatedAnswers().get(0).getPossibleAnswers()).isEqualTo(questions[0].getAnswers());
-        assertThat(actual.getValidatedAnswers().get(1).getCorrectlyAnswers()).isEqualTo(List.of(true,true,true,true,true));
-        assertThat(actual.getId()).isNotBlank();
-        assertThat(actual.getValidatedAnswers().get(4).getGivenAnswers()).isEqualTo(List.of(true,false,false,false,true));
+        assertThat(actual.getAnswerId()).isNotBlank();
 
     }
 

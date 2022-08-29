@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {AnswersGiven, QuestionEntity, ValidatedAnswer} from "../../service/models";
+import {AnswersGiven, AnswersValidatedDTO, QuestionEntity, ValidatedAnswer} from "../../service/models";
 import {AxiosError} from "axios";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../auth/AuthProvider";
@@ -12,7 +12,7 @@ import ProgressBar from "./ProgressBar";
 
 interface TrainContentProps {
     fetch: (token: string) => Promise<QuestionEntity[]>
-    validate : (answers:AnswersGiven[],token :string) => Promise<ValidatedAnswer>
+    validate : (answers:AnswersGiven[],token :string) => Promise<AnswersValidatedDTO>
 }
 
 export default function TrainContent({fetch,validate}: TrainContentProps) {
@@ -79,13 +79,7 @@ export default function TrainContent({fetch,validate}: TrainContentProps) {
 
     const handOverAnswers = () => {
         validate(givenAnswers,token)
-            .then(data => {
-                if (data.isExam){
-                    nav(`/examResult/${data.id}`)
-                } else {
-                    nav(`/results/${data.id}`)
-                }
-            })
+            .then(data => nav(`/result/${data.answerId}`))
             .catch((err : AxiosError) => console.log(err.message))
     }
 

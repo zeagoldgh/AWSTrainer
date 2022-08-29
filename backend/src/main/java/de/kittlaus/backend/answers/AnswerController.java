@@ -1,8 +1,11 @@
 package de.kittlaus.backend.answers;
 
+import de.kittlaus.backend.models.answers.AnswersDTO;
+import de.kittlaus.backend.models.answers.AnswersValidatedDTO;
 import de.kittlaus.backend.models.answers.GivenAnswer;
 import de.kittlaus.backend.models.answers.ValidatedAnswer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +21,12 @@ public class AnswerController {
 
 
     @PostMapping
-    public ResponseEntity<ValidatedAnswer> checkAnswers(@RequestBody List<GivenAnswer> given, Principal principal){
-        return ResponseEntity.of(answerService.checkAndSaveAnswers(given, principal.getName()));
+    public ResponseEntity<AnswersValidatedDTO> checkAnswers(@RequestBody List<GivenAnswer> given, Principal principal){
+        return ResponseEntity.status(HttpStatus.OK).body(answerService.checkAndSaveAnswers(given, principal.getName()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ValidatedAnswer> getAnswerById(@PathVariable String id){
+    public ResponseEntity<AnswersDTO> getAnswerById(@PathVariable String id){
         return ResponseEntity.of(answerService.findById(id));
     }
 
