@@ -5,6 +5,8 @@ import {useAuth} from "../../auth/AuthProvider";
 import {ValidatedAnswers} from "../../service/models";
 import ResultCard from "./ResultCard";
 import ResultFilter from "./ResultFilter";
+import ResultSummary from "./ResultSummary";
+import NavBar from "../Common/NavBar";
 
 interface ResultGalleryProps{
     id : string
@@ -35,9 +37,18 @@ export default function ResultGallery({id}:ResultGalleryProps){
         }
     },[id, token])
 
+    const percent = () =>{
+        if (results){
+            const right = results.takenQuestions.filter(e => !e.correctlyAnswers.includes(false)).length
+            return right/results.takenQuestions.length * 100
+        }
+        return 0
+    }
+
 
     return(
         <div>
+            <NavBar location={"/result"}/>
             {
                 results ?
                     <div>
@@ -65,6 +76,7 @@ export default function ResultGallery({id}:ResultGalleryProps){
                                 return <ResultCard key={e.question.question} result={e} index={i}/>
                             })
                         }
+                        <ResultSummary percentRight={percent()}/>
                     </div>
                     :
                     <i className="nes-kirby"></i>
