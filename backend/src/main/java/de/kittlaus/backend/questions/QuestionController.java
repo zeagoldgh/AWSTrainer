@@ -1,6 +1,7 @@
 package de.kittlaus.backend.questions;
 
 import de.kittlaus.backend.models.questions.Category;
+import de.kittlaus.backend.models.questions.CertType;
 import de.kittlaus.backend.models.questions.Question;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,9 +36,9 @@ public class QuestionController {
         return questionService.getRandomQuestions(howMany);
     }
 
-    @GetMapping
-    public List<Question> getRandom(){
-        return questionService.random(5, Category.CLOUD);
+    @GetMapping("/exam/{certType}")
+    public List<Question> getQuestionsForPracticeExam(@PathVariable CertType certType){
+        return questionService.generateExam(certType);
     }
 
 }

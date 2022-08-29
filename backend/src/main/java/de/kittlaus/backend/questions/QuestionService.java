@@ -2,6 +2,7 @@ package de.kittlaus.backend.questions;
 
 
 import de.kittlaus.backend.models.questions.Category;
+import de.kittlaus.backend.models.questions.CertType;
 import de.kittlaus.backend.models.questions.Question;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,14 @@ public class QuestionService {
 
     public List<Question> random(int i, Category category) {
         return questionRepo.findRandomTasksInCategory(i,category);
+    }
+
+    public List<Question> generateExam(CertType certType) {
+        List<Question> exam = new ArrayList<>();
+        exam.addAll(questionRepo.findRandomTasksInCategoryInExam(17,Category.CLOUD,certType));
+        exam.addAll(questionRepo.findRandomTasksInCategoryInExam(16,Category.SECURITY,certType));
+        exam.addAll(questionRepo.findRandomTasksInCategoryInExam(22,Category.TECHNOLOGY,certType));
+        exam.addAll(questionRepo.findRandomTasksInCategoryInExam(10,Category.BILLING,certType));
+        return exam;
     }
 }

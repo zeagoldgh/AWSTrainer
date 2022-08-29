@@ -1,6 +1,7 @@
 package de.kittlaus.backend.questions;
 
 import de.kittlaus.backend.models.questions.Category;
+import de.kittlaus.backend.models.questions.CertType;
 import de.kittlaus.backend.models.questions.Question;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -31,6 +32,18 @@ public class ExtendQuestionRepoImpl implements ExtendQuestionRepo {
         var aggregation = Aggregation.newAggregation(
                 Question.class,
                 Aggregation.match(Criteria.where("{ category : "+category+" }")),
+                Aggregation.sample(count)
+        );
+        var aggregationResult = mongoTemplate.aggregate(aggregation, Question.class);
+        return aggregationResult.getMappedResults();
+    }
+
+    @Override
+    public List<Question> findRandomTasksInCategoryInExam(int count, Category category, CertType certType) {
+        var aggregation = Aggregation.newAggregation(
+                Question.class,
+                Aggregation.match(Criteria.where("{ category : "+category+" }")),
+                Aggregation.match(Criteria.where("{ certType : "+certType+" }")),
                 Aggregation.sample(count)
         );
         var aggregationResult = mongoTemplate.aggregate(aggregation, Question.class);
