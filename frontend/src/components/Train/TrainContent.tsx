@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {AnswersGiven, AnswersValidatedDTO, QuestionEntity, ValidatedAnswer} from "../../service/models";
+import {AnswersGiven, AnswersValidatedDTO, QuestionEntity} from "../../service/models";
 import {AxiosError} from "axios";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../auth/AuthProvider";
