@@ -1,16 +1,15 @@
 package de.kittlaus.backend.answers;
 
-import de.kittlaus.backend.models.answers.CheckedAnswer;
-import de.kittlaus.backend.models.answers.GivenAnswer;
-import de.kittlaus.backend.models.answers.ValidatedAnswer;
+import de.kittlaus.backend.models.answers.*;
 import de.kittlaus.backend.models.questions.Question;
 import de.kittlaus.backend.questions.QuestionService;
 import de.kittlaus.backend.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,26 +20,53 @@ public class AnswerService {
     private final UserService userService;
 
 
-    public Optional<ValidatedAnswer> checkAndSaveAnswers(List<GivenAnswer> given, String username) {
+    public AnswersValidatedDTO checkAndSaveAnswers(List<GivenAnswer> given, String username) {
         String userId = userService.findByUsername(username).orElseThrow().getId();
         List<String> questionsId = given.stream().map(GivenAnswer::getQuestionId).toList();
         List<Question> questionsUnorderd = questionService.findAllById(questionsId);
-        List<Question> questions = new ArrayList<>(List.copyOf(questionsUnorderd));
-        for (Question question : questionsUnorderd) {
-            questions.set(questionsId.indexOf(question.getId()), question);
-        }
+        List<Question> questions = sortQuestions(questionsId, questionsUnorderd);
         List<CheckedAnswer> checkedAnswers = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
             checkedAnswers.add(validateAnswer(given.get(i), questions.get(i)));
         }
         ValidatedAnswer validatedAnswer = ValidatedAnswer.builder().validatedAnswers(checkedAnswers).userId(userId).isExam(false).build();
-        return Optional.of(answerRepo.save(validatedAnswer));
+        return new AnswersValidatedDTO(answerRepo.save(validatedAnswer).getId());
+    }
+
+
+    public Optional<AnswersDTO> findById(String id) {
+        Optional<ValidatedAnswer> optAnswers = answerRepo.findById(id);
+        if (optAnswers.isEmpty()) {
+            return Optional.empty();
+        }
+        ValidatedAnswer answers = optAnswers.get();
+        List<String> questionIds = answers.getValidatedAnswers().stream().map(checkedAnswer -> checkedAnswer.getQuestionId()).toList();
+        List<Question> questions = questionService.findAllById(questionIds);
+        List<Question> questionsSorted = sortQuestions(questionIds, questions);
+        List<AnsweredQuestion> answeredQuestions = makeAnsweredQuestions(answers, questionsSorted);
+        return Optional.of(AnswersDTO.builder()
+                .isExam(answers.isExam())
+                .takenQuestions(answeredQuestions)
+                .build());
+    }
+
+    private List<AnsweredQuestion> makeAnsweredQuestions(ValidatedAnswer answers, List<Question> questions) {
+        List<AnsweredQuestion> combined = new ArrayList<>();
+        for (int i = 0; i < questions.size(); i++) {
+            combined.add(AnsweredQuestion.builder()
+                    .question(questions.get(i))
+                    .correctlyAnswers(answers.getValidatedAnswers().get(i).getCorrectlyAnswers())
+                    .givenAnswers(answers.getValidatedAnswers().get(i).getGivenAnswers())
+                    .build()
+            );
+        }
+        return combined;
     }
 
     private CheckedAnswer validateAnswer(GivenAnswer answer, Question question) {
         CheckedAnswer checked = CheckedAnswer.builder()
                 .givenAnswers(answer.getGivenAnswers())
-                .possibleAnswers(question.getAnswers())
+                .questionId(question.getId())
                 .category(question.getCategory())
                 .certType(question.getCertType())
                 .build();
@@ -52,7 +78,12 @@ public class AnswerService {
         return checked;
     }
 
-    public Optional<ValidatedAnswer> findById(String id) {
-        return answerRepo.findById(id);
+    private List<Question> sortQuestions(List<String> questionsId, List<Question> questionsUnorderd) {
+        List<Question> questions = new ArrayList<>(List.copyOf(questionsUnorderd));
+        for (Question question : questionsUnorderd) {
+            questions.set(questionsId.indexOf(question.getId()), question);
+        }
+        return questions;
     }
+
 }

@@ -18,7 +18,7 @@ export default function App() {
                     <Route path={'/user'} element={<LoginPage/>}/>
                     <Route path={'/add'} element={<CreateQuestion/>}/>
                     <Route path={'/quickTrain'} element={<QuickTrainPage/>}/>
-                    <Route path={'/results/:id'} element={<ResultsPage/>}/>
+                    <Route path={'/result/:id'} element={<ResultsPage/>}/>
                 </Routes>
             </AuthProvider>
         </BrowserRouter>

@@ -1,7 +1,6 @@
 package de.kittlaus.backend.models.answers;
 
-import de.kittlaus.backend.models.questions.Category;
-import de.kittlaus.backend.models.questions.CertType;
+import de.kittlaus.backend.models.questions.Question;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,13 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CheckedAnswer {
+public class AnsweredQuestion {
 
-    private String questionId;
+    private Question question;
     private List<Boolean> givenAnswers;
     private List<Boolean> correctlyAnswers;
-    private Category category;
-    private CertType certType;
 
 
 }

@@ -45,15 +45,16 @@ export interface AnswersGiven {
 }
 
 export interface ValidatedAnswer {
-    id : string
     isExam : boolean
-    validatedAnswers : CheckedAnswer[]
+    takenQuestions : CheckedAnswer[]
 }
 
 export interface CheckedAnswer{
-    possibleAnswers : string[]
+    question : QuestionEntity
     givenAnswers : boolean[]
     correctlyAnswers : boolean[]
-    category : string
-    certType : string
+}
+
+export interface AnswersValidatedDTO{
+    answerId : string
 }

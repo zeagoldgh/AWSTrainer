@@ -30,7 +30,7 @@ export default function ResultsPage(){
                 results ?
                     <div>
                         {
-                            results.validatedAnswers.map((e,i) => {
+                            results.takenQuestions.map((e,i) => {
                                 return <p key={i}>{e.correctlyAnswers.includes(false)?'Leider falsch':'Richtig'}</p>
                             })
                         }
