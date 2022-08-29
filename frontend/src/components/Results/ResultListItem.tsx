@@ -23,7 +23,7 @@ export default function ResultListItem({text,wasGuessed,isCorrect}:ResultListIte
             css = 'correct'
             info = '-> Richtig!'
         } else if (!isCorrect && wasGuessed){
-            css = 'false'
+            css = 'wrong'
             info = "-> Falsch"
         } else {
             css = 'missed'
