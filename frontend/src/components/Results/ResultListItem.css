@@ -1,0 +1,15 @@
+.correct{
+    color: darkgreen;
+}
+
+.unused{
+    color: whitesmoke;
+}
+
+.wrong{
+    color: red;
+}
+
+.missed{
+    color: greenyellow;
+}
