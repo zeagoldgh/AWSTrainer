@@ -66,6 +66,7 @@ export default function ResultGallery({id}:ResultGalleryProps){
                     <div>
                         <ResultFilter selected={filterCorrect} handleChange={setFilterCorrect} options={filterCorrectValue} texts={filterCorrectTexts}/>
                         <ResultFilter selected={filterCategory} handleChange={setFilterCategory} options={filterCategoryValue} texts={filterCategoryTexts}/>
+                        <p>Du hast {results.takenQuestions.filter(e => !e.correctlyAnswers.includes(false)).length} von {results.takenQuestions.length} richtig</p>
                         {
                             results.takenQuestions
                                 .filter(e => {

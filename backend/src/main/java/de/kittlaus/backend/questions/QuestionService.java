@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -39,6 +40,7 @@ public class QuestionService {
         exam.addAll(questionRepo.findRandomQuestionsInCategoryInExam(16,Category.SECURITY,certType));
         exam.addAll(questionRepo.findRandomQuestionsInCategoryInExam(22,Category.TECHNOLOGY,certType));
         exam.addAll(questionRepo.findRandomQuestionsInCategoryInExam(10,Category.BILLING,certType));
+        Collections.shuffle(exam);
         return exam;
     }
 
